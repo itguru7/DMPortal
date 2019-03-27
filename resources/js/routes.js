@@ -21,6 +21,6 @@ export const routes = [
             { path: '/:id/buyerguide', component: PartBuyerGuide },
             { path: '/:id/interchange', component: PartInterchange },
         ] },
-        { part: '/xref', component: XRef }
+        { path: '/xref', component: XRef }
     ] }
 ];
