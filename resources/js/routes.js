@@ -15,12 +15,12 @@ export const routes = [
     { path: '/', component: Home },
     { path: '/:name', component: Application, children: [
         { path: '', component: Filter },
-        { path: '/part', component: Part, children: [
-            { path: '/:id', component: PartImages },
-            { path: '/:id/info', component: PartInfo },
-            { path: '/:id/buyerguide', component: PartBuyerGuide },
-            { path: '/:id/interchange', component: PartInterchange },
+        { path: 'part', component: Part, children: [
+            { path: ':id', component: PartImages },
+            { path: ':id/info', component: PartInfo },
+            { path: ':id/buyerguide', component: PartBuyerGuide },
+            { path: ':id/interchange', component: PartInterchange },
         ] },
-        { path: '/xref', component: XRef }
+        { path: 'xref', component: XRef }
     ] }
 ];
