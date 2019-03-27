@@ -12,5 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('portal');
+});
+
+Route::prefix('admin')->group(function () {
+    Auth::routes();
+    Route::get('/', 'AdminController@index')->name('admin');
 });
