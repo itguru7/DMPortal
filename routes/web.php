@@ -13,9 +13,9 @@
 
 Route::prefix('admin')->group(function () {
     Auth::routes();
-    Route::get('/', 'AdminController@index')->name('admin');
+    Route::get('', 'AdminController@index')->name('admin');
 });
 
-Route::get('/{vue_capture?}', function () {
+Route::get('/{vue_capture}', function () {
     return view('portal');
 })->where('vue_capture', '[\/\w\.-]*');
