@@ -3,7 +3,6 @@
     <h2>Hello {{ vendor }}</h2>
     <v-container>
       <v-tabs
-        slot="extension"
         color="cyan"
         dark
         slider-color="yellow"
@@ -18,13 +17,19 @@
           Xref
         </v-tab>
         <v-tab-item :value="'filter'">
-          <app-filter></app-filter>
+          <div class="tab-item-wrapper">
+            <app-filter></app-filter>
+          </div>
         </v-tab-item>
         <v-tab-item :value="'part'">
-          <app-part></app-part>
+          <div class="tab-item-wrapper">
+            <app-part></app-part>
+          </div>
         </v-tab-item>
         <v-tab-item :value="'xref'">
-          <app-xref></app-xref>
+          <div class="tab-item-wrapper">
+            <app-xref></app-xref>
+          </div>
         </v-tab-item>
       </v-tabs>
     </v-container>
@@ -44,10 +49,6 @@
       appPart: Part,
       appXref: Xref,
     },
-    created() {
-      this.$store.dispatch('setVendor', this.$route.params.vendor);
-      this.$store.dispatch('fetchMakes');
-    },
     computed: {
       ...mapGetters([
         'vendor'
@@ -57,7 +58,12 @@
       ...mapActions([
         'fetchMakes'
       ]),
-    }
+    },
+    created() {
+      this.$store.dispatch('updateVendor', this.$route.params.vendor);
+      this.$store.dispatch('fetchMakes');
+    },
+
   }
 </script>
 
