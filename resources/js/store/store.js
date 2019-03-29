@@ -93,33 +93,37 @@ export const store = new Vuex.Store({
     fetchMakes: (context) => {
       var url = SERVER_URL + '/fetchFilters';
       var formData = {
-        'input': {},
+        'input': {
+          // 'Vendor': context.state.vendor
+        },
         'output': ['Make']
       }
       axios.post(url, formData)
         .then(res  => {
-          context.commit('updateMakes', res.data);
-          context.commit('selectMake', '');
+          context.commit('updateMakes', res.data['Make']);
+          // context.commit('selectMake', '');
         })
     },
     fetchModels: (context) => {
       var url = SERVER_URL + '/fetchFilters';
       var formData = {
         'input': {
+          // 'Vendor': context.state.vendor,
           'Make': context.state.selectedMake
         },
         'output': ['Model']
       }
       axios.post(url, formData)
         .then(res  => {
-          context.commit('updateModels', res.data);
-          context.commit('selectModel', '');
+          context.commit('updateModels', res.data['Model']);
+          // context.commit('selectModel', '');
         })
     },
     fetchYears: (context) => {
       var url = SERVER_URL + '/fetchFilters';
       var formData = {
         'input': {
+          // 'Vendor': context.state.vendor,
           'Make': context.state.selectedMake,
           'Model': context.state.selectedModel
         },
@@ -127,14 +131,15 @@ export const store = new Vuex.Store({
       }
       axios.post(url, formData)
         .then(res  => {
-          context.commit('updateYears', res.data);
-          context.commit('selectYear', '');
+          context.commit('updateYears', res.data['Year']);
+          // context.commit('selectYear', '');
         })
     },
     fetchEngines: (context) => {
       var url = SERVER_URL + '/fetchFilters';
       var formData = {
         'input': {
+          // 'Vendor': context.state.vendor,
           'Make': context.state.selectedMake,
           'Model': context.state.selectedModel,
           'Year': context.state.selectedYear
@@ -143,8 +148,8 @@ export const store = new Vuex.Store({
       }
       axios.post(url, formData)
         .then(res  => {
-          context.commit('updateEngines', res.data);
-          context.commit('selectEngine', '');
+          context.commit('updateEngines', res.data['Engine_Info']);
+          // context.commit('selectEngine', '');
         })
     },
 

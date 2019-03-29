@@ -1,71 +1,77 @@
 <template>
   <div>
-    <h3>Filter</h3>
     <v-container>
       <v-layout row wrap>
         <v-flex md3>
-          <label for="filter_makes">Make</label>
-          <select
-            id="filter_makes"
-            class="form-control"
-            v-model="selectedMake"
-            size="4"
-          >
-            <option
-              v-for="make in makes"
+          <v-card class="pa-3">
+            <h3 class="text-center">Make</h3>
+            <select
+              id="filter_makes"
+              class="form-control"
+              v-model="selectedMake"
+              size="10"
             >
-              {{ make }}
-            </option>
-          </select>
+              <option
+                v-for="make in makes"
+              >
+                {{ make }}
+              </option>
+            </select>
+          </v-card>
         </v-flex>
         <v-flex md3>
-          <label for="filter_models">Model</label>
-          <select
-            id="filter_models"
-            class="form-control"
-            v-model="selectedModel"
-            size="4"
-          >
-            <option
-              v-for="model in models"
+          <v-card class="pa-3">
+            <h3 class="text-center">Model</h3>
+            <select
+              id="filter_models"
+              class="form-control"
+              v-model="selectedModel"
+              size="10"
             >
-              {{ model }}
-            </option>
-          </select>
+              <option
+                v-for="model in models"
+              >
+                {{ model }}
+              </option>
+            </select>
+          </v-card>
         </v-flex>
         <v-flex md3>
-          <label for="filter_years">Year</label>
-          <select
-            id="filter_years"
-            class="form-control"
-            v-model="selectedYear"
-            size="4"
-          >
-            <option
-              v-for="year in years"
+          <v-card class="pa-3">
+            <h3 class="text-center">Year</h3>
+            <select
+              id="filter_years"
+              class="form-control"
+              v-model="selectedYear"
+              size="10"
             >
-              {{ year }}
-            </option>
-          </select>
+              <option
+                v-for="year in years"
+              >
+                {{ year }}
+              </option>
+            </select>
+          </v-card>
         </v-flex>
         <v-flex md3>
-          <label for="filter_engines">Engine</label>
-          <select
-            id="filter_engines"
-            class="form-control"
-            v-model="selectedEngine"
-            size="4"
-          >
-            <option
-              v-for="engine in engines"
+          <v-card class="pa-3">
+            <h3 class="text-center">Engine</h3>
+            <select
+              id="filter_engines"
+              class="form-control"
+              v-model="selectedEngine"
+              size="10"
             >
-              {{ engine }}
-            </option>
-          </select>
+              <option
+                v-for="engine in engines"
+              >
+                {{ engine }}
+              </option>
+            </select>
+          </v-card>
         </v-flex>
       </v-layout>
     </v-container>
-    <p>{{selectedMake}}</p>
   </div>
 </template>
 

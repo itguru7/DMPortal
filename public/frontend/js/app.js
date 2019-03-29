@@ -1932,6 +1932,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['vendor', 'makes', 'models', 'years', 'engines']), {
@@ -37797,8 +37803,6 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h3", [_vm._v("Filter")]),
-      _vm._v(" "),
       _c(
         "v-container",
         [
@@ -37806,185 +37810,217 @@ var render = function() {
             "v-layout",
             { attrs: { row: "", wrap: "" } },
             [
-              _c("v-flex", { attrs: { md3: "" } }, [
-                _c("label", { attrs: { for: "filter_makes" } }, [
-                  _vm._v("Make")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
+              _c(
+                "v-flex",
+                { attrs: { md3: "" } },
+                [
+                  _c("v-card", { staticClass: "pa-3" }, [
+                    _c("h3", { staticClass: "text-center" }, [_vm._v("Make")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.selectedMake,
-                        expression: "selectedMake"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { id: "filter_makes", size: "4" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.selectedMake = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  _vm._l(_vm.makes, function(make) {
-                    return _c("option", [
-                      _vm._v("\n            " + _vm._s(make) + "\n          ")
-                    ])
-                  }),
-                  0
-                )
-              ]),
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.selectedMake,
+                            expression: "selectedMake"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "filter_makes", size: "10" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.selectedMake = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      _vm._l(_vm.makes, function(make) {
+                        return _c("option", [
+                          _vm._v(
+                            "\n              " + _vm._s(make) + "\n            "
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("v-flex", { attrs: { md3: "" } }, [
-                _c("label", { attrs: { for: "filter_models" } }, [
-                  _vm._v("Model")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
+              _c(
+                "v-flex",
+                { attrs: { md3: "" } },
+                [
+                  _c("v-card", { staticClass: "pa-3" }, [
+                    _c("h3", { staticClass: "text-center" }, [_vm._v("Model")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.selectedModel,
-                        expression: "selectedModel"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { id: "filter_models", size: "4" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.selectedModel = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  _vm._l(_vm.models, function(model) {
-                    return _c("option", [
-                      _vm._v("\n            " + _vm._s(model) + "\n          ")
-                    ])
-                  }),
-                  0
-                )
-              ]),
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.selectedModel,
+                            expression: "selectedModel"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "filter_models", size: "10" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.selectedModel = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      _vm._l(_vm.models, function(model) {
+                        return _c("option", [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(model) +
+                              "\n            "
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("v-flex", { attrs: { md3: "" } }, [
-                _c("label", { attrs: { for: "filter_years" } }, [
-                  _vm._v("Year")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
+              _c(
+                "v-flex",
+                { attrs: { md3: "" } },
+                [
+                  _c("v-card", { staticClass: "pa-3" }, [
+                    _c("h3", { staticClass: "text-center" }, [_vm._v("Year")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.selectedYear,
-                        expression: "selectedYear"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { id: "filter_years", size: "4" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.selectedYear = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  _vm._l(_vm.years, function(year) {
-                    return _c("option", [
-                      _vm._v("\n            " + _vm._s(year) + "\n          ")
-                    ])
-                  }),
-                  0
-                )
-              ]),
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.selectedYear,
+                            expression: "selectedYear"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "filter_years", size: "10" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.selectedYear = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      _vm._l(_vm.years, function(year) {
+                        return _c("option", [
+                          _vm._v(
+                            "\n              " + _vm._s(year) + "\n            "
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("v-flex", { attrs: { md3: "" } }, [
-                _c("label", { attrs: { for: "filter_engines" } }, [
-                  _vm._v("Engine")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
+              _c(
+                "v-flex",
+                { attrs: { md3: "" } },
+                [
+                  _c("v-card", { staticClass: "pa-3" }, [
+                    _c("h3", { staticClass: "text-center" }, [
+                      _vm._v("Engine")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.selectedEngine,
-                        expression: "selectedEngine"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { id: "filter_engines", size: "4" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.selectedEngine = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  _vm._l(_vm.engines, function(engine) {
-                    return _c("option", [
-                      _vm._v("\n            " + _vm._s(engine) + "\n          ")
-                    ])
-                  }),
-                  0
-                )
-              ])
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.selectedEngine,
+                            expression: "selectedEngine"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "filter_engines", size: "10" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.selectedEngine = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      _vm._l(_vm.engines, function(engine) {
+                        return _c("option", [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(engine) +
+                              "\n            "
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ],
+                1
+              )
             ],
             1
           )
         ],
         1
-      ),
-      _vm._v(" "),
-      _c("p", [_vm._v(_vm._s(_vm.selectedMake))])
+      )
     ],
     1
   )
@@ -80520,45 +80556,46 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     fetchMakes: function fetchMakes(context) {
       var url = SERVER_URL + '/fetchFilters';
       var formData = {
-        'input': {},
+        'input': {// 'Vendor': context.state.vendor
+        },
         'output': ['Make']
       };
       axios.post(url, formData).then(function (res) {
-        context.commit('updateMakes', res.data);
-        context.commit('selectMake', '');
+        context.commit('updateMakes', res.data['Make']); // context.commit('selectMake', '');
       });
     },
     fetchModels: function fetchModels(context) {
       var url = SERVER_URL + '/fetchFilters';
       var formData = {
         'input': {
+          // 'Vendor': context.state.vendor,
           'Make': context.state.selectedMake
         },
         'output': ['Model']
       };
       axios.post(url, formData).then(function (res) {
-        context.commit('updateModels', res.data);
-        context.commit('selectModel', '');
+        context.commit('updateModels', res.data['Model']); // context.commit('selectModel', '');
       });
     },
     fetchYears: function fetchYears(context) {
       var url = SERVER_URL + '/fetchFilters';
       var formData = {
         'input': {
+          // 'Vendor': context.state.vendor,
           'Make': context.state.selectedMake,
           'Model': context.state.selectedModel
         },
         'output': ['Year']
       };
       axios.post(url, formData).then(function (res) {
-        context.commit('updateYears', res.data);
-        context.commit('selectYear', '');
+        context.commit('updateYears', res.data['Year']); // context.commit('selectYear', '');
       });
     },
     fetchEngines: function fetchEngines(context) {
       var url = SERVER_URL + '/fetchFilters';
       var formData = {
         'input': {
+          // 'Vendor': context.state.vendor,
           'Make': context.state.selectedMake,
           'Model': context.state.selectedModel,
           'Year': context.state.selectedYear
@@ -80566,8 +80603,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
         'output': ['Engine_Info']
       };
       axios.post(url, formData).then(function (res) {
-        context.commit('updateEngines', res.data);
-        context.commit('selectEngine', '');
+        context.commit('updateEngines', res.data['Engine_Info']); // context.commit('selectEngine', '');
       });
     },
     selectMake: function selectMake(context, payload) {
