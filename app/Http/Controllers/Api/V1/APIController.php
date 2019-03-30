@@ -41,4 +41,35 @@ class APIController extends Controller
 
         return response()->json($filters);
     }
+
+    public function fetchParts(Request $request) {
+        $filters = $request->filters;
+        $limit = $request->limit;
+
+        $query_src = ' from applications';
+        $col_index = 0;
+        foreach ($filters as $col => $value) {
+            if ($col_index == 0) {
+                $query_src .= ' where';
+            } else {
+                $query_src .= ' and';
+            }
+            $query_src .= ' `'.$col.'` like "%'.$value.'%"';
+            $col_index ++;
+        }
+        $query_limit = ' limit '.$limit->offset.', '.$limit->count;
+
+        $query = 'select count(*) '.$query_src;
+        $length = DB::select($query);
+
+        $query = 'select count(*) '.$query_src.$query_limit;
+        $result = DB::select($query);
+        $data = json_decode(json_encode($result), true);
+
+        return response()->json(array(
+            'data' => $data,
+            'length' => $length,
+        ));
+    }
+
 }
