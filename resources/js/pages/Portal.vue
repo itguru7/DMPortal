@@ -18,7 +18,7 @@
         </v-tab>
         <v-tab-item :value="'filter'">
           <div class="tab-item-wrapper">
-            <app-filter></app-filter>
+            <app-application></app-application>
           </div>
         </v-tab-item>
         <v-tab-item :value="'part'">
@@ -39,13 +39,13 @@
 <script>
   import { mapGetters, mapActions } from 'vuex';
 
-  import Filter from './Application/Filter.vue';
-  import Part from './Application/Part.vue';
-  import Xref from './Application/Xref.vue';
+  import Application  from './Application/Application.vue';
+  import Part         from './Part/Part.vue';
+  import Xref         from './Xref/Xref.vue';
 
   export default {
     components: {
-      appFilter: Filter,
+      appApplication: Application,
       appPart: Part,
       appXref: Xref,
     },

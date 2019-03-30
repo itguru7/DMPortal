@@ -5,9 +5,3 @@
     </v-content>
   </v-app>
 </template>
-
-<script>
-</script>
-
-<style scoped>
-</style>
