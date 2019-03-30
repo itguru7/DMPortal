@@ -80115,15 +80115,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************!*\
   !*** ./resources/js/pages/Application/Filter.vue ***!
   \***************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Filter_vue_vue_type_template_id_8a91d200_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Filter.vue?vue&type=template&id=8a91d200&scoped=true& */ "./resources/js/pages/Application/Filter.vue?vue&type=template&id=8a91d200&scoped=true&");
 /* harmony import */ var _Filter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Filter.vue?vue&type=script&lang=js& */ "./resources/js/pages/Application/Filter.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Filter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Filter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -80153,7 +80152,7 @@ component.options.__file = "resources/js/pages/Application/Filter.vue"
 /*!****************************************************************************!*\
   !*** ./resources/js/pages/Application/Filter.vue?vue&type=script&lang=js& ***!
   \****************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80421,36 +80420,156 @@ var routes = [{
 
 /***/ }),
 
-/***/ "./resources/js/store/actions.js":
-/*!***************************************!*\
-  !*** ./resources/js/store/actions.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./resources/js/store/modules/filters.js":
+/*!***********************************************!*\
+  !*** ./resources/js/store/modules/filters.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-
-
-/***/ }),
-
-/***/ "./resources/js/store/getters.js":
-/*!***************************************!*\
-  !*** ./resources/js/store/getters.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ "./resources/js/store/mutations.js":
-/*!*****************************************!*\
-  !*** ./resources/js/store/mutations.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var state = {
+  makes: [],
+  models: [],
+  years: [],
+  engines: [],
+  selectedMake: '',
+  selectedModel: '',
+  selectedYear: '',
+  selectedEngine: ''
+};
+var getters = {
+  makes: function makes(state) {
+    return state.makes;
+  },
+  models: function models(state) {
+    return state.models;
+  },
+  years: function years(state) {
+    return state.years;
+  },
+  engines: function engines(state) {
+    return state.engines;
+  },
+  selectedMake: function selectedMake(state) {
+    return state.selectedMake;
+  },
+  selectedModel: function selectedModel(state) {
+    return state.selectedModel;
+  },
+  selectedYear: function selectedYear(state) {
+    return state.selectedYear;
+  },
+  selectedEngine: function selectedEngine(state) {
+    return state.selectedEngine;
+  }
+};
+var mutations = {
+  updateMakes: function updateMakes(state, payload) {
+    state.makes = payload;
+  },
+  updateModels: function updateModels(state, payload) {
+    state.models = payload;
+  },
+  updateYears: function updateYears(state, payload) {
+    state.years = payload;
+  },
+  updateEngines: function updateEngines(state, payload) {
+    state.engines = payload;
+  },
+  selectMake: function selectMake(state, payload) {
+    state.selectedMake = payload;
+  },
+  selectModel: function selectModel(state, payload) {
+    state.selectedModel = payload;
+  },
+  selectYear: function selectYear(state, payload) {
+    state.selectedYear = payload;
+  },
+  selectEngine: function selectEngine(state, payload) {
+    state.selectedEngine = payload;
+  }
+};
+var actions = {
+  fetchMakes: function fetchMakes(context) {
+    var url = SERVER_URL + '/fetchFilters';
+    var formData = {
+      'input': {// 'Vendor': context.state.vendor
+      },
+      'output': ['Make']
+    };
+    axios.post(url, formData).then(function (res) {
+      context.commit('updateMakes', res.data['Make']); // context.commit('selectMake', '');
+    });
+  },
+  fetchModels: function fetchModels(context) {
+    var url = SERVER_URL + '/fetchFilters';
+    var formData = {
+      'input': {
+        // 'Vendor': context.state.vendor,
+        'Make': context.state.selectedMake
+      },
+      'output': ['Model']
+    };
+    axios.post(url, formData).then(function (res) {
+      context.commit('updateModels', res.data['Model']); // context.commit('selectModel', '');
+    });
+  },
+  fetchYears: function fetchYears(context) {
+    var url = SERVER_URL + '/fetchFilters';
+    var formData = {
+      'input': {
+        // 'Vendor': context.state.vendor,
+        'Make': context.state.selectedMake,
+        'Model': context.state.selectedModel
+      },
+      'output': ['Year']
+    };
+    axios.post(url, formData).then(function (res) {
+      context.commit('updateYears', res.data['Year']); // context.commit('selectYear', '');
+    });
+  },
+  fetchEngines: function fetchEngines(context) {
+    var url = SERVER_URL + '/fetchFilters';
+    var formData = {
+      'input': {
+        // 'Vendor': context.state.vendor,
+        'Make': context.state.selectedMake,
+        'Model': context.state.selectedModel,
+        'Year': context.state.selectedYear
+      },
+      'output': ['Engine_Info']
+    };
+    axios.post(url, formData).then(function (res) {
+      context.commit('updateEngines', res.data['Engine_Info']); // context.commit('selectEngine', '');
+    });
+  },
+  selectMake: function selectMake(context, payload) {
+    context.commit('selectMake', payload);
+    context.dispatch('fetchModels');
+    context.commit('updateYears', []);
+    context.commit('updateEngines', []);
+  },
+  selectModel: function selectModel(context, payload) {
+    context.commit('selectModel', payload);
+    context.dispatch('fetchYears');
+    context.commit('updateEngines', []);
+  },
+  selectYear: function selectYear(context, payload) {
+    context.commit('selectYear', payload);
+    context.dispatch('fetchEngines');
+  },
+  selectEngine: function selectEngine(context, payload) {
+    context.commit('selectEngine', payload);
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions
+});
 
 /***/ }),
 
@@ -80467,165 +80586,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getters */ "./resources/js/store/getters.js");
-/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_getters__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mutations */ "./resources/js/store/mutations.js");
-/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_mutations__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./actions */ "./resources/js/store/actions.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_actions__WEBPACK_IMPORTED_MODULE_4__);
-
-
-
+/* harmony import */ var _modules_filters__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/filters */ "./resources/js/store/modules/filters.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    vendor: '',
-    makes: [],
-    models: [],
-    years: [],
-    engines: [],
-    selectedMake: '',
-    selectedModel: '',
-    selectedYear: '',
-    selectedEngine: ''
+    vendor: ''
   },
   getters: {
     vendor: function vendor(state) {
       return state.vendor;
-    },
-    makes: function makes(state) {
-      return state.makes;
-    },
-    models: function models(state) {
-      return state.models;
-    },
-    years: function years(state) {
-      return state.years;
-    },
-    engines: function engines(state) {
-      return state.engines;
-    },
-    selectedMake: function selectedMake(state) {
-      return state.selectedMake;
-    },
-    selectedModel: function selectedModel(state) {
-      return state.selectedModel;
-    },
-    selectedYear: function selectedYear(state) {
-      return state.selectedYear;
-    },
-    selectedEngine: function selectedEngine(state) {
-      return state.selectedEngine;
     }
   },
   mutations: {
     updateVendor: function updateVendor(state, payload) {
       state.vendor = payload;
-    },
-    updateMakes: function updateMakes(state, payload) {
-      state.makes = payload;
-    },
-    updateModels: function updateModels(state, payload) {
-      state.models = payload;
-    },
-    updateYears: function updateYears(state, payload) {
-      state.years = payload;
-    },
-    updateEngines: function updateEngines(state, payload) {
-      state.engines = payload;
-    },
-    selectMake: function selectMake(state, payload) {
-      state.selectedMake = payload;
-    },
-    selectModel: function selectModel(state, payload) {
-      state.selectedModel = payload;
-    },
-    selectYear: function selectYear(state, payload) {
-      state.selectedYear = payload;
-    },
-    selectEngine: function selectEngine(state, payload) {
-      state.selectedEngine = payload;
     }
   },
   actions: {
     updateVendor: function updateVendor(context, payload) {
       context.commit('updateVendor', payload);
-    },
-    fetchMakes: function fetchMakes(context) {
-      var url = SERVER_URL + '/fetchFilters';
-      var formData = {
-        'input': {// 'Vendor': context.state.vendor
-        },
-        'output': ['Make']
-      };
-      axios.post(url, formData).then(function (res) {
-        context.commit('updateMakes', res.data['Make']); // context.commit('selectMake', '');
-      });
-    },
-    fetchModels: function fetchModels(context) {
-      var url = SERVER_URL + '/fetchFilters';
-      var formData = {
-        'input': {
-          // 'Vendor': context.state.vendor,
-          'Make': context.state.selectedMake
-        },
-        'output': ['Model']
-      };
-      axios.post(url, formData).then(function (res) {
-        context.commit('updateModels', res.data['Model']); // context.commit('selectModel', '');
-      });
-    },
-    fetchYears: function fetchYears(context) {
-      var url = SERVER_URL + '/fetchFilters';
-      var formData = {
-        'input': {
-          // 'Vendor': context.state.vendor,
-          'Make': context.state.selectedMake,
-          'Model': context.state.selectedModel
-        },
-        'output': ['Year']
-      };
-      axios.post(url, formData).then(function (res) {
-        context.commit('updateYears', res.data['Year']); // context.commit('selectYear', '');
-      });
-    },
-    fetchEngines: function fetchEngines(context) {
-      var url = SERVER_URL + '/fetchFilters';
-      var formData = {
-        'input': {
-          // 'Vendor': context.state.vendor,
-          'Make': context.state.selectedMake,
-          'Model': context.state.selectedModel,
-          'Year': context.state.selectedYear
-        },
-        'output': ['Engine_Info']
-      };
-      axios.post(url, formData).then(function (res) {
-        context.commit('updateEngines', res.data['Engine_Info']); // context.commit('selectEngine', '');
-      });
-    },
-    selectMake: function selectMake(context, payload) {
-      context.commit('selectMake', payload);
-      context.dispatch('fetchModels');
-      context.commit('updateYears', []);
-      context.commit('updateEngines', []);
-    },
-    selectModel: function selectModel(context, payload) {
-      context.commit('selectModel', payload);
-      context.dispatch('fetchYears');
-      context.commit('updateEngines', []);
-    },
-    selectYear: function selectYear(context, payload) {
-      context.commit('selectYear', payload);
-      context.dispatch('fetchEngines');
-    },
-    selectEngine: function selectEngine(context, payload) {
-      context.commit('selectEngine', payload);
     }
   },
-  modules: {}
+  modules: {
+    filters: _modules_filters__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }
 });
 
 /***/ }),
