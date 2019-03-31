@@ -11,5 +11,12 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/frontend/js')
+mix.webpackConfig({
+   resolve: {
+      alias: {
+          'vuejs-datatable': 'vuejs-datatable/dist/vuejs-datatable.esm.js',
+      }
+  },
+})
+.js('resources/js/app.js', 'public/frontend/js')
    .sass('resources/sass/app.scss', 'public/frontend/css');

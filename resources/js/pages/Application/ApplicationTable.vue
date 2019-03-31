@@ -47,10 +47,10 @@
         var formData = {
           'filters': {
             // 'Vendor': vendor,
-            'Make': selectedMake,
-            'Model': selectedModel,
-            'Year': selectedYear,
-            'Engine_Info': selectedEngine,
+            'Make': this.selectedMake,
+            'Model': this.selectedModel,
+            'Year': this.selectedYear,
+            'Engine_Info': this.selectedEngine,
           },
           'limit': {
             'offset': (params.page_number - 1) * params.page_length,
