@@ -57,18 +57,20 @@ class APIController extends Controller
             $query_src .= ' `'.$col.'` like "%'.$value.'%"';
             $col_index ++;
         }
-        $query_limit = ' limit '.$limit->offset.', '.$limit->count;
+        $query_limit = ' limit '.$limit['offset'].', '.$limit['count'];
 
         $query = 'select count(*) '.$query_src;
-        $length = DB::select($query);
+        $result = DB::select($query);
+        $length = json_decode(json_encode($result[0]), true)['count(*)'];
 
-        $query = 'select count(*) '.$query_src.$query_limit;
+        $query = 'select * '.$query_src.$query_limit;
         $result = DB::select($query);
         $data = json_decode(json_encode($result), true);
 
         return response()->json(array(
             'data' => $data,
             'length' => $length,
+            'query' => $query,
         ));
     }
 

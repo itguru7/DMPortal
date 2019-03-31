@@ -1,13 +1,23 @@
 <template>
-  <v-container>
-    <v-layout row wrap>
-      <v-flex xs12 class="table-responsive">
-        <datatable :columns="columns" :data="getData"></datatable>
-      </v-flex>
-      <v-flex xs12 class="table-responsive">
+  <v-container v-if="visiblePartsTable">
+    <div class="row">
+      <div class="col-xs-12 table-responsive">
+        <datatable :columns="columns" :data="getData">
+          <template slot-scope="{ row, columns }">
+            <tr @click="selectRow(row)">
+              <template>
+                <datatable-cell v-for="(column, j) in columns" :key="j" :column="column" :row="row"></datatable-cell>
+              </template>
+            </tr>
+          </template>
+        </datatable>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 form-inline">
         <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
-      </v-flex>
-    </v-layout>
+      </div>
+    </div>
   </v-container>
 </template>
 
@@ -27,7 +37,6 @@
           { label: 'Quantity', field: 'Quantity', sortable: false},
           { label: 'Part_Number', field: 'Part_Number', sortable: false},
         ],
-        rows: window.rows,
         page: 1,
         per_page: 10,
       }
@@ -39,14 +48,18 @@
         'selectedModel',
         'selectedYear',
         'selectedEngine',
+        'visiblePartsTable',
       ]),
     },
     methods: {
       getData(params, setRowData){
+        if (params.page_number <= 0 || !params.page_length) {
+          return;
+        }
         var url = SERVER_URL + '/fetchParts';
         var formData = {
           'filters': {
-            // 'Vendor': vendor,
+            // 'Vendor': this.vendor,
             'Make': this.selectedMake,
             'Model': this.selectedModel,
             'Year': this.selectedYear,
@@ -64,7 +77,10 @@
               res.data['length'],
             );
           })
-      }
+      },
+      selectRow(row){
+        console.log(row);
+      },
     }
   }
 </script>

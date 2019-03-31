@@ -6,10 +6,12 @@ const state = {
   years: [],
   engines: [],
 
-  selectedMake: '',
-  selectedModel: '',
-  selectedYear: '',
-  selectedEngine: '',
+  selectedMake: null,
+  selectedModel: null,
+  selectedYear: null,
+  selectedEngine: null,
+
+  visiblePartsTable: false,
 }
 
 const getters = {
@@ -41,6 +43,10 @@ const getters = {
   },
   selectedEngine: state => {
     return state.selectedEngine;
+  },
+
+  visiblePartsTable: state => {
+    return state.visiblePartsTable;
   },
 }
 
@@ -74,13 +80,13 @@ const mutations = {
   selectEngine: (state, payload) => {
     state.selectedEngine = payload;
   },
+
+  updatePartsTableVisibility: (state, payload) => {
+    state.visiblePartsTable = payload;
+  },
 }
 
 const actions = {
-  updateVendor: (context, payload) => {
-    context.commit('updateVendor', payload);
-  },
-
   fetchMakes: (context) => {
     var url = SERVER_URL + '/fetchFilters';
     var formData = {
@@ -92,7 +98,6 @@ const actions = {
     axios.post(url, formData)
       .then(res  => {
         context.commit('updateMakes', res.data['Make']);
-        // context.commit('selectMake', '');
       })
   },
   fetchModels: (context) => {
@@ -107,7 +112,6 @@ const actions = {
     axios.post(url, formData)
       .then(res  => {
         context.commit('updateModels', res.data['Model']);
-        // context.commit('selectModel', '');
       })
   },
   fetchYears: (context) => {
@@ -123,7 +127,6 @@ const actions = {
     axios.post(url, formData)
       .then(res  => {
         context.commit('updateYears', res.data['Year']);
-        // context.commit('selectYear', '');
       })
   },
   fetchEngines: (context) => {
@@ -140,27 +143,20 @@ const actions = {
     axios.post(url, formData)
       .then(res  => {
         context.commit('updateEngines', res.data['Engine_Info']);
-        // context.commit('selectEngine', '');
       })
   },
 
-  selectMake: (context, payload) => {
-    context.commit('selectMake', payload);
-    context.dispatch('fetchModels');
-    context.commit('updateYears', []);
-    context.commit('updateEngines', []);
-  },
-  selectModel: (context, payload) => {
-    context.commit('selectModel', payload);
-    context.dispatch('fetchYears');
-    context.commit('updateEngines', []);
-  },
-  selectYear: (context, payload) => {
-    context.commit('selectYear', payload);
-    context.dispatch('fetchEngines');
-  },
-  selectEngine: (context, payload) => {
-    context.commit('selectEngine', payload);
+  updatePartsTableVisibility: (context, payload) => {
+    if (!payload) {
+      context.commit('updatePartsTableVisibility', payload);
+    } else {
+      if (context.state.visiblePartsTable) {
+        context.commit('updatePartsTableVisibility', false);
+      }
+      setTimeout(function() {
+        context.commit('updatePartsTableVisibility', true);
+      }, 100);
+    }
   },
 }
 

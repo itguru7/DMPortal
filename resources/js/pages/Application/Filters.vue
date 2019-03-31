@@ -89,7 +89,7 @@
           return this.$store.getters.selectedMake;
         },
         set(payload) {
-          this.$store.dispatch('selectMake', payload);
+          this.$store.commit('selectMake', payload);
         },
       },
       selectedModel: {
@@ -97,7 +97,7 @@
           return this.$store.getters.selectedModel;
         },
         set(payload) {
-          this.$store.dispatch('selectModel', payload);
+          this.$store.commit('selectModel', payload);
         },
       },
       selectedYear: {
@@ -105,7 +105,7 @@
           return this.$store.getters.selectedYear;
         },
         set(payload) {
-          this.$store.dispatch('selectYear', payload);
+          this.$store.commit('selectYear', payload);
         },
       },
       selectedEngine: {
@@ -113,9 +113,53 @@
           return this.$store.getters.selectedEngine;
         },
         set(payload) {
-          this.$store.dispatch('selectEngine', payload);
+          this.$store.commit('selectEngine', payload);
         },
       },
+    },
+    watch: {
+      makes(newValue, oldValue) {
+        this.$store.commit('selectMake', null);
+      },
+      models(newValue, oldValue) {
+        this.$store.commit('selectModel', null);
+      },
+      years(newValue, oldValue) {
+        this.$store.commit('selectYear', null);
+      },
+      engines(newValue, oldValue) {
+        this.$store.commit('selectEngine', null);
+      },
+
+      selectedMake(newValue, oldValue) {
+        if (newValue) {
+          this.$store.dispatch('fetchModels');
+        } else {
+          this.$store.commit('updateModels', []);
+        }
+      },
+      selectedModel(newValue, oldValue) {
+        if (newValue) {
+          this.$store.dispatch('fetchYears');
+        } else {
+          this.$store.commit('updateYears', []);
+        }
+      },
+      selectedYear(newValue, oldValue) {
+        if (newValue) {
+          this.$store.dispatch('fetchEngines');
+        } else {
+          this.$store.commit('updateEngines', []);
+        }
+      },
+      selectedEngine(newValue, oldValue) {
+        if (newValue) {
+          this.$store.dispatch('updatePartsTableVisibility', true);
+        } else {
+          this.$store.dispatch('updatePartsTableVisibility', false);
+        }
+      },
+
     },
   }
 </script>

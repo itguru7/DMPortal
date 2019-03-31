@@ -60,7 +60,7 @@
       ]),
     },
     created() {
-      this.$store.dispatch('updateVendor', this.$route.params.vendor);
+      this.$store.commit('updateVendor', this.$route.params.vendor);
       this.$store.dispatch('fetchMakes');
     },
 

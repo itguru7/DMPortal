@@ -1812,6 +1812,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1849,18 +1859,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         field: 'Part_Number',
         sortable: false
       }],
-      rows: window.rows,
       page: 1,
       per_page: 10
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['vendor', 'selectedMake', 'selectedModel', 'selectedYear', 'selectedEngine'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['vendor', 'selectedMake', 'selectedModel', 'selectedYear', 'selectedEngine', 'visiblePartsTable'])),
   methods: {
     getData: function getData(params, setRowData) {
+      if (params.page_number <= 0 || !params.page_length) {
+        return;
+      }
+
       var url = SERVER_URL + '/fetchParts';
       var formData = {
         'filters': {
-          // 'Vendor': vendor,
+          // 'Vendor': this.vendor,
           'Make': this.selectedMake,
           'Model': this.selectedModel,
           'Year': this.selectedYear,
@@ -1874,6 +1887,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.post(url, formData).then(function (res) {
         setRowData(res.data['data'], res.data['length']);
       });
+    },
+    selectRow: function selectRow(row) {
+      console.log(row);
     }
   }
 });
@@ -1977,7 +1993,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return this.$store.getters.selectedMake;
       },
       set: function set(payload) {
-        this.$store.dispatch('selectMake', payload);
+        this.$store.commit('selectMake', payload);
       }
     },
     selectedModel: {
@@ -1985,7 +2001,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return this.$store.getters.selectedModel;
       },
       set: function set(payload) {
-        this.$store.dispatch('selectModel', payload);
+        this.$store.commit('selectModel', payload);
       }
     },
     selectedYear: {
@@ -1993,7 +2009,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return this.$store.getters.selectedYear;
       },
       set: function set(payload) {
-        this.$store.dispatch('selectYear', payload);
+        this.$store.commit('selectYear', payload);
       }
     },
     selectedEngine: {
@@ -2001,10 +2017,52 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return this.$store.getters.selectedEngine;
       },
       set: function set(payload) {
-        this.$store.dispatch('selectEngine', payload);
+        this.$store.commit('selectEngine', payload);
       }
     }
-  })
+  }),
+  watch: {
+    makes: function makes(newValue, oldValue) {
+      this.$store.commit('selectMake', null);
+    },
+    models: function models(newValue, oldValue) {
+      this.$store.commit('selectModel', null);
+    },
+    years: function years(newValue, oldValue) {
+      this.$store.commit('selectYear', null);
+    },
+    engines: function engines(newValue, oldValue) {
+      this.$store.commit('selectEngine', null);
+    },
+    selectedMake: function selectedMake(newValue, oldValue) {
+      if (newValue) {
+        this.$store.dispatch('fetchModels');
+      } else {
+        this.$store.commit('updateModels', []);
+      }
+    },
+    selectedModel: function selectedModel(newValue, oldValue) {
+      if (newValue) {
+        this.$store.dispatch('fetchYears');
+      } else {
+        this.$store.commit('updateYears', []);
+      }
+    },
+    selectedYear: function selectedYear(newValue, oldValue) {
+      if (newValue) {
+        this.$store.dispatch('fetchEngines');
+      } else {
+        this.$store.commit('updateEngines', []);
+      }
+    },
+    selectedEngine: function selectedEngine(newValue, oldValue) {
+      if (newValue) {
+        this.$store.dispatch('updatePartsTableVisibility', true);
+      } else {
+        this.$store.dispatch('updatePartsTableVisibility', false);
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -2109,7 +2167,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['vendor'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['fetchMakes'])),
   created: function created() {
-    this.$store.dispatch('updateVendor', this.$route.params.vendor);
+    this.$store.commit('updateVendor', this.$route.params.vendor);
     this.$store.dispatch('fetchMakes');
   }
 });
@@ -37852,27 +37910,60 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-container",
-    [
-      _c(
-        "v-layout",
-        { attrs: { row: "", wrap: "" } },
-        [
+  return _vm.visiblePartsTable
+    ? _c("v-container", [
+        _c("div", { staticClass: "row" }, [
           _c(
-            "v-flex",
-            { staticClass: "table-responsive", attrs: { xs12: "" } },
+            "div",
+            { staticClass: "col-xs-12 table-responsive" },
             [
               _c("datatable", {
-                attrs: { columns: _vm.columns, data: _vm.getData }
+                attrs: { columns: _vm.columns, data: _vm.getData },
+                scopedSlots: _vm._u(
+                  [
+                    {
+                      key: "default",
+                      fn: function(ref) {
+                        var row = ref.row
+                        var columns = ref.columns
+                        return [
+                          _c(
+                            "tr",
+                            {
+                              on: {
+                                click: function($event) {
+                                  return _vm.selectRow(row)
+                                }
+                              }
+                            },
+                            [
+                              _vm._l(columns, function(column, j) {
+                                return _c("datatable-cell", {
+                                  key: j,
+                                  attrs: { column: column, row: row }
+                                })
+                              })
+                            ],
+                            2
+                          )
+                        ]
+                      }
+                    }
+                  ],
+                  null,
+                  false,
+                  3158555417
+                )
               })
             ],
             1
-          ),
-          _vm._v(" "),
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
           _c(
-            "v-flex",
-            { staticClass: "table-responsive", attrs: { xs12: "" } },
+            "div",
+            { staticClass: "col-xs-12 form-inline" },
             [
               _c("datatable-pager", {
                 attrs: { type: "abbreviated", "per-page": _vm.per_page },
@@ -37887,12 +37978,9 @@ var render = function() {
             ],
             1
           )
-        ],
-        1
-      )
-    ],
-    1
-  )
+        ])
+      ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -81098,10 +81186,11 @@ var state = {
   models: [],
   years: [],
   engines: [],
-  selectedMake: '',
-  selectedModel: '',
-  selectedYear: '',
-  selectedEngine: ''
+  selectedMake: null,
+  selectedModel: null,
+  selectedYear: null,
+  selectedEngine: null,
+  visiblePartsTable: false
 };
 var getters = {
   vendor: function vendor(state) {
@@ -81130,6 +81219,9 @@ var getters = {
   },
   selectedEngine: function selectedEngine(state) {
     return state.selectedEngine;
+  },
+  visiblePartsTable: function visiblePartsTable(state) {
+    return state.visiblePartsTable;
   }
 };
 var mutations = {
@@ -81159,12 +81251,12 @@ var mutations = {
   },
   selectEngine: function selectEngine(state, payload) {
     state.selectedEngine = payload;
+  },
+  updatePartsTableVisibility: function updatePartsTableVisibility(state, payload) {
+    state.visiblePartsTable = payload;
   }
 };
 var actions = {
-  updateVendor: function updateVendor(context, payload) {
-    context.commit('updateVendor', payload);
-  },
   fetchMakes: function fetchMakes(context) {
     var url = SERVER_URL + '/fetchFilters';
     var formData = {
@@ -81173,7 +81265,7 @@ var actions = {
       'output': ['Make']
     };
     axios.post(url, formData).then(function (res) {
-      context.commit('updateMakes', res.data['Make']); // context.commit('selectMake', '');
+      context.commit('updateMakes', res.data['Make']);
     });
   },
   fetchModels: function fetchModels(context) {
@@ -81186,7 +81278,7 @@ var actions = {
       'output': ['Model']
     };
     axios.post(url, formData).then(function (res) {
-      context.commit('updateModels', res.data['Model']); // context.commit('selectModel', '');
+      context.commit('updateModels', res.data['Model']);
     });
   },
   fetchYears: function fetchYears(context) {
@@ -81200,7 +81292,7 @@ var actions = {
       'output': ['Year']
     };
     axios.post(url, formData).then(function (res) {
-      context.commit('updateYears', res.data['Year']); // context.commit('selectYear', '');
+      context.commit('updateYears', res.data['Year']);
     });
   },
   fetchEngines: function fetchEngines(context) {
@@ -81215,26 +81307,21 @@ var actions = {
       'output': ['Engine_Info']
     };
     axios.post(url, formData).then(function (res) {
-      context.commit('updateEngines', res.data['Engine_Info']); // context.commit('selectEngine', '');
+      context.commit('updateEngines', res.data['Engine_Info']);
     });
   },
-  selectMake: function selectMake(context, payload) {
-    context.commit('selectMake', payload);
-    context.dispatch('fetchModels');
-    context.commit('updateYears', []);
-    context.commit('updateEngines', []);
-  },
-  selectModel: function selectModel(context, payload) {
-    context.commit('selectModel', payload);
-    context.dispatch('fetchYears');
-    context.commit('updateEngines', []);
-  },
-  selectYear: function selectYear(context, payload) {
-    context.commit('selectYear', payload);
-    context.dispatch('fetchEngines');
-  },
-  selectEngine: function selectEngine(context, payload) {
-    context.commit('selectEngine', payload);
+  updatePartsTableVisibility: function updatePartsTableVisibility(context, payload) {
+    if (!payload) {
+      context.commit('updatePartsTableVisibility', payload);
+    } else {
+      if (context.state.visiblePartsTable) {
+        context.commit('updatePartsTableVisibility', false);
+      }
+
+      setTimeout(function () {
+        context.commit('updatePartsTableVisibility', true);
+      }, 100);
+    }
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
