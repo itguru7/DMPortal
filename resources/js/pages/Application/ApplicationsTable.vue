@@ -24,8 +24,8 @@
     data() {
       return {
         columns: [
-          { label: 'Product', field: 'Part_Terminology', sortable: false},
-          { label: 'Notes', field: 'Notes', sortable: false},
+          { label: 'Product', field: 'Part_Terminology', filterable: false, sortable: false},
+          { label: 'Notes', field: 'Notes', sortable: true},
           { label: 'Quantity', field: 'Quantity', sortable: false},
           { label: 'Part Number', field: 'Part_Number', sortable: false},
           { label: 'Engine Type', field: 'Engine_Info', sortable: false},
@@ -61,7 +61,11 @@
           'limit': {
             'offset': (params.page_number - 1) * params.page_length,
             'count': params.page_length,
-          }
+          },
+          'sort': {
+            sort_by: params.sort_by,
+            sort_dir: params.sort_dir,
+          },
         }
         axios.post(url, formData)
           .then(res  => {

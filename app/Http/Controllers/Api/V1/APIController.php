@@ -45,6 +45,7 @@ class APIController extends Controller
     public function fetchApplications(Request $request) {
         $filters = $request->filters;
         $limit = $request->limit;
+        $sort = $request->sort;
 
         $query_src = ' FROM applications';
         $col_index = 0;
@@ -57,13 +58,20 @@ class APIController extends Controller
             $query_src .= ' `'.$col.'` LIKE "%'.$value.'%"';
             $col_index ++;
         }
-        $query_limit = ' LIMIT '.$limit['offset'].', '.$limit['count'];
+        $query_limit = '';
+        if (isset($limit)) {
+            $query_limit = ' LIMIT '.$limit['offset'].', '.$limit['count'];
+        }
+        $query_sort = '';
+        if (isset($sort) && $sort['sort_by'] != null && $sort['sort_dir'] != null) {
+            $query_sort = ' ORDER BY `'.$sort['sort_by'].'` '.$sort['sort_dir'];
+        }
 
         $query = 'SELECT COUNT(*) '.$query_src;
         $result = DB::select($query);
         $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
 
-        $query = 'SELECT * '.$query_src.$query_limit;
+        $query = 'SELECT * '.$query_src.$query_sort.$query_limit;
         $result = DB::select($query);
         $data = json_decode(json_encode($result), true);
 
