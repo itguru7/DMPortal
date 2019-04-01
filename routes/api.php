@@ -16,3 +16,4 @@ use Illuminate\Http\Request;
 Route::post('fetchFilters', 'APIController@fetchFilters');
 Route::post('fetchApplications', 'APIController@fetchApplications');
 Route::post('fetchParts', 'APIController@fetchParts');
+Route::post('fetchInterchanges', 'APIController@fetchInterchanges');

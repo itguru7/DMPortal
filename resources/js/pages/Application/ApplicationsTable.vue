@@ -1,22 +1,18 @@
 <template>
-  <div v-if="visibleApplicationsTable">
-    <div class="row">
-      <div class="col-xs-12 table-responsive">
-        <datatable :columns="columns" :data="getData">
-          <template slot-scope="{ row, columns }">
-            <tr @click="selectRow(row)">
-              <template>
-                <datatable-cell v-for="(column, j) in columns" :key="j" :column="column" :row="row"></datatable-cell>
-              </template>
-            </tr>
-          </template>
-        </datatable>
-      </div>
+  <div class="row" v-if="visibleApplicationsTable">
+    <div class="col-xs-12 table-responsive">
+      <datatable :columns="columns" :data="getData">
+        <template slot-scope="{ row, columns }">
+          <tr @click="selectRow(row)">
+            <template>
+              <datatable-cell v-for="(column, j) in columns" :key="j" :column="column" :row="row"></datatable-cell>
+            </template>
+          </tr>
+        </template>
+      </datatable>
     </div>
-    <div class="row">
-      <div class="col-xs-12 form-inline">
-        <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
-      </div>
+    <div class="col-xs-12 form-inline">
+      <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
     </div>
   </div>
 </template>
@@ -28,14 +24,11 @@
     data() {
       return {
         columns: [
-          { label: 'Year', field: 'Year', sortable: false},
-          { label: 'Make', field: 'Make', sortable: false},
-          { label: 'Model', field: 'Model', sortable: false},
-          { label: 'Part Terminology', field: 'Part_Terminology', sortable: false},
-          { label: 'Engine_Info', field: 'Engine_Info', sortable: false},
+          { label: 'Product', field: 'Part_Terminology', sortable: false},
           { label: 'Notes', field: 'Notes', sortable: false},
           { label: 'Quantity', field: 'Quantity', sortable: false},
-          { label: 'Part_Number', field: 'Part_Number', sortable: false},
+          { label: 'Part Number', field: 'Part_Number', sortable: false},
+          { label: 'Engine Type', field: 'Engine_Info', sortable: false},
         ],
         page: 1,
         per_page: 10,

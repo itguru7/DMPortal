@@ -1816,33 +1816,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       columns: [{
-        label: 'Year',
-        field: 'Year',
-        sortable: false
-      }, {
-        label: 'Make',
-        field: 'Make',
-        sortable: false
-      }, {
-        label: 'Model',
-        field: 'Model',
-        sortable: false
-      }, {
-        label: 'Part Terminology',
+        label: 'Product',
         field: 'Part_Terminology',
-        sortable: false
-      }, {
-        label: 'Engine_Info',
-        field: 'Engine_Info',
         sortable: false
       }, {
         label: 'Notes',
@@ -1853,8 +1833,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         field: 'Quantity',
         sortable: false
       }, {
-        label: 'Part_Number',
+        label: 'Part Number',
         field: 'Part_Number',
+        sortable: false
+      }, {
+        label: 'Engine Type',
+        field: 'Engine_Info',
         sortable: false
       }],
       page: 1,
@@ -2160,7 +2144,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /***/ }),
 
@@ -2178,8 +2161,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
 //
 //
 //
@@ -2254,15 +2235,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('updatePartsTableVisibility', true);
     },
     getData: function getData(params, setRowData) {
-      console.log(params);
-
       if (params.page_number <= 0 || !params.page_length) {
         return;
       }
 
       var url = SERVER_URL + '/fetchParts';
       var formData = {
-        'part_number': this.partNumber,
+        'partNumber': this.partNumber,
         'limit': {
           'offset': (params.page_number - 1) * params.page_length,
           'count': params.page_length
@@ -2368,8 +2347,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /*!***************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/Xref/Xref.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -2377,6 +2363,101 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      columns: [{
+        label: 'Part_Target_ID',
+        field: 'Part_Target_ID',
+        sortable: false
+      }, {
+        label: 'Brand',
+        field: 'Brand',
+        sortable: false
+      }, {
+        label: 'Interchange_Part_Number',
+        field: 'Interchange_Part_Number',
+        sortable: false
+      }],
+      page: 1,
+      per_page: 10
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    visibleInterchangesTable: function visibleInterchangesTable(state) {
+      return state.global.visibleInterchangesTable;
+    }
+  }), {
+    xRef: {
+      get: function get() {
+        return this.$store.state.global.xRef;
+      },
+      set: function set(payload) {
+        this.$store.commit('updateXRef', payload);
+      }
+    }
+  }),
+  methods: {
+    searchInterchanges: function searchInterchanges() {
+      this.$store.dispatch('updateInterchangesTableVisibility', true);
+    },
+    getData: function getData(params, setRowData) {
+      if (params.page_number <= 0 || !params.page_length) {
+        return;
+      }
+
+      var url = SERVER_URL + '/fetchInterchanges';
+      var formData = {
+        'xRef': this.xRef,
+        'limit': {
+          'offset': (params.page_number - 1) * params.page_length,
+          'count': params.page_length
+        }
+      };
+      axios.post(url, formData).then(function (res) {
+        setRowData(res.data['data'], res.data['length']);
+      });
+    },
+    selectRow: function selectRow(row) {
+      this.$store.commit('updateActivePage', 1);
+      this.$store.commit('updatePartNumber', row.Part_Number);
+      this.$store.dispatch('updatePartsTableVisibility', true);
+    }
+  }
+});
 
 /***/ }),
 
@@ -38101,74 +38182,70 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.visibleApplicationsTable
-    ? _c("div", [
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col-xs-12 table-responsive" },
-            [
-              _c("datatable", {
-                attrs: { columns: _vm.columns, data: _vm.getData },
-                scopedSlots: _vm._u(
-                  [
-                    {
-                      key: "default",
-                      fn: function(ref) {
-                        var row = ref.row
-                        var columns = ref.columns
-                        return [
-                          _c(
-                            "tr",
-                            {
-                              on: {
-                                click: function($event) {
-                                  return _vm.selectRow(row)
-                                }
+    ? _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-xs-12 table-responsive" },
+          [
+            _c("datatable", {
+              attrs: { columns: _vm.columns, data: _vm.getData },
+              scopedSlots: _vm._u(
+                [
+                  {
+                    key: "default",
+                    fn: function(ref) {
+                      var row = ref.row
+                      var columns = ref.columns
+                      return [
+                        _c(
+                          "tr",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.selectRow(row)
                               }
-                            },
-                            [
-                              _vm._l(columns, function(column, j) {
-                                return _c("datatable-cell", {
-                                  key: j,
-                                  attrs: { column: column, row: row }
-                                })
+                            }
+                          },
+                          [
+                            _vm._l(columns, function(column, j) {
+                              return _c("datatable-cell", {
+                                key: j,
+                                attrs: { column: column, row: row }
                               })
-                            ],
-                            2
-                          )
-                        ]
-                      }
+                            })
+                          ],
+                          2
+                        )
+                      ]
                     }
-                  ],
-                  null,
-                  false,
-                  3158555417
-                )
-              })
-            ],
-            1
-          )
-        ]),
+                  }
+                ],
+                null,
+                false,
+                3158555417
+              )
+            })
+          ],
+          1
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col-xs-12 form-inline" },
-            [
-              _c("datatable-pager", {
-                attrs: { type: "abbreviated", "per-page": _vm.per_page },
-                model: {
-                  value: _vm.page,
-                  callback: function($$v) {
-                    _vm.page = $$v
-                  },
-                  expression: "page"
-                }
-              })
-            ],
-            1
-          )
-        ])
+        _c(
+          "div",
+          { staticClass: "col-xs-12 form-inline" },
+          [
+            _c("datatable-pager", {
+              attrs: { type: "abbreviated", "per-page": _vm.per_page },
+              model: {
+                value: _vm.page,
+                callback: function($$v) {
+                  _vm.page = $$v
+                },
+                expression: "page"
+              }
+            })
+          ],
+          1
+        )
       ])
     : _vm._e()
 }
@@ -38451,7 +38528,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-container", [_vm._v("\n  Part Detail\n")])
+  return _c("v-container")
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38475,19 +38552,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", [
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-6" },
+        { staticClass: "col-4" },
         [
           _c("v-text-field", {
-            attrs: {
-              id: "part_number",
-              label: "Solo",
-              placeholder: "Part Number",
-              solo: ""
-            },
+            attrs: { placeholder: "Part Number", solo: "" },
             model: {
               value: _vm.partNumber,
               callback: function($$v) {
@@ -38502,7 +38574,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-3" },
+        { staticClass: "col-2" },
         [
           _c(
             "v-btn",
@@ -38687,16 +38759,113 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-2" },
+        [
+          _c("v-text-field", {
+            attrs: { placeholder: "Xref", solo: "" },
+            model: {
+              value: _vm.xRef,
+              callback: function($$v) {
+                _vm.xRef = $$v
+              },
+              expression: "xRef"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-1" },
+        [
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "error" },
+              on: { click: _vm.searchInterchanges }
+            },
+            [_vm._v("\n        Go\n      ")]
+          )
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _vm.visibleInterchangesTable
+      ? _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-xs-12 table-responsive" },
+            [
+              _c("datatable", {
+                attrs: { columns: _vm.columns, data: _vm.getData },
+                scopedSlots: _vm._u(
+                  [
+                    {
+                      key: "default",
+                      fn: function(ref) {
+                        var row = ref.row
+                        var columns = ref.columns
+                        return [
+                          _c(
+                            "tr",
+                            {
+                              on: {
+                                click: function($event) {
+                                  return _vm.selectRow(row)
+                                }
+                              }
+                            },
+                            [
+                              _vm._l(columns, function(column, j) {
+                                return _c("datatable-cell", {
+                                  key: j,
+                                  attrs: { column: column, row: row }
+                                })
+                              })
+                            ],
+                            2
+                          )
+                        ]
+                      }
+                    }
+                  ],
+                  null,
+                  false,
+                  3158555417
+                )
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-xs-12 form-inline" },
+            [
+              _c("datatable-pager", {
+                attrs: { type: "abbreviated", "per-page": _vm.per_page },
+                model: {
+                  value: _vm.page,
+                  callback: function($$v) {
+                    _vm.page = $$v
+                  },
+                  expression: "page"
+                }
+              })
+            ],
+            1
+          )
+        ])
+      : _vm._e()
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h3", [_vm._v("XRef")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -81575,9 +81744,7 @@ component.options.__file = "resources/js/pages/Xref/Xref.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Xref_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Xref.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/Xref/Xref.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Xref_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Xref_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Xref_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Xref_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Xref_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Xref_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -81749,22 +81916,30 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   activePage: null,
   visibleApplicationsTable: false,
+  visiblePartsTable: false,
+  visibleInterchangesTable: false,
   partNumber: '',
-  visiblePartsTable: false
+  xRef: ''
 };
 var getters = {};
 var mutations = {
   updateActivePage: function updateActivePage(state, payload) {
     state.activePage = payload;
   },
-  updateApplicationsTableVisibility: function updateApplicationsTableVisibility(state, payload) {
-    state.visibleApplicationsTable = payload;
-  },
   updatePartNumber: function updatePartNumber(state, payload) {
     state.partNumber = payload;
   },
+  updateXRef: function updateXRef(state, payload) {
+    state.xRef = payload;
+  },
+  updateApplicationsTableVisibility: function updateApplicationsTableVisibility(state, payload) {
+    state.visibleApplicationsTable = payload;
+  },
   updatePartsTableVisibility: function updatePartsTableVisibility(state, payload) {
     state.visiblePartsTable = payload;
+  },
+  updateInterchangesTableVisibility: function updateInterchangesTableVisibility(state, payload) {
+    state.visibleInterchangesTable = payload;
   }
 };
 var actions = {
@@ -81791,6 +81966,19 @@ var actions = {
 
       setTimeout(function () {
         context.commit('updatePartsTableVisibility', true);
+      }, 100);
+    }
+  },
+  updateInterchangesTableVisibility: function updateInterchangesTableVisibility(context, payload) {
+    if (!payload) {
+      context.commit('updateInterchangesTableVisibility', payload);
+    } else {
+      if (context.state.visibleInterchangesTable) {
+        context.commit('updateInterchangesTableVisibility', false);
+      }
+
+      setTimeout(function () {
+        context.commit('updateInterchangesTableVisibility', true);
       }, 100);
     }
   },

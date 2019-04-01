@@ -2,9 +2,11 @@ const state = {
   activePage: null,
 
   visibleApplicationsTable: false,
+  visiblePartsTable: false,
+  visibleInterchangesTable: false,
 
   partNumber: '',
-  visiblePartsTable: false,
+  xRef: '',
 }
 
 const getters = {
@@ -15,15 +17,21 @@ const mutations = {
     state.activePage = payload;
   },
 
-  updateApplicationsTableVisibility: (state, payload) => {
-    state.visibleApplicationsTable = payload;
-  },
-
   updatePartNumber: (state, payload) => {
     state.partNumber = payload;
   },
+  updateXRef: (state, payload) => {
+    state.xRef = payload;
+  },
+
+  updateApplicationsTableVisibility: (state, payload) => {
+    state.visibleApplicationsTable = payload;
+  },
   updatePartsTableVisibility: (state, payload) => {
     state.visiblePartsTable = payload;
+  },
+  updateInterchangesTableVisibility: (state, payload) => {
+    state.visibleInterchangesTable = payload;
   },
 }
 
@@ -49,6 +57,18 @@ const actions = {
       }
       setTimeout(function() {
         context.commit('updatePartsTableVisibility', true);
+      }, 100);
+    }
+  },
+  updateInterchangesTableVisibility: (context, payload) => {
+    if (!payload) {
+      context.commit('updateInterchangesTableVisibility', payload);
+    } else {
+      if (context.state.visibleInterchangesTable) {
+        context.commit('updateInterchangesTableVisibility', false);
+      }
+      setTimeout(function() {
+        context.commit('updateInterchangesTableVisibility', true);
       }, 100);
     }
   },

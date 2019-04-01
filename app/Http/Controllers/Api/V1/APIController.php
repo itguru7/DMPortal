@@ -12,23 +12,23 @@ class APIController extends Controller
         $input = $request->input;
         $output = $request->output;
 
-        $query_src = ' from applications';
+        $query_src = ' FROM applications';
         $col_index = 0;
         foreach ($input as $col => $value) {
             if ($col_index == 0) {
-                $query_src .= ' where';
+                $query_src .= ' WHERE';
             } else {
-                $query_src .= ' and';
+                $query_src .= ' AND';
             }
-            $query_src .= ' `'.$col.'` like "%'.$value.'%"';
+            $query_src .= ' `'.$col.'` LIKE "%'.$value.'%"';
             $col_index ++;
         }
 
         $filters = array();
         foreach ($output as $col) {
-            $query = 'select distinct `'.$col.'`'.$query_src;
+            $query = 'SELECT distinct `'.$col.'`'.$query_src;
             if ($col == 'Year') {
-                $query .= ' order by `'.$col.'` desc';
+                $query .= ' ORDER BY `'.$col.'` desc';
             }
             $result = DB::select($query);
             $result = json_decode(json_encode($result), true);
@@ -46,24 +46,24 @@ class APIController extends Controller
         $filters = $request->filters;
         $limit = $request->limit;
 
-        $query_src = ' from applications';
+        $query_src = ' FROM applications';
         $col_index = 0;
         foreach ($filters as $col => $value) {
             if ($col_index == 0) {
-                $query_src .= ' where';
+                $query_src .= ' WHERE';
             } else {
-                $query_src .= ' and';
+                $query_src .= ' AND';
             }
-            $query_src .= ' `'.$col.'` like "%'.$value.'%"';
+            $query_src .= ' `'.$col.'` LIKE "%'.$value.'%"';
             $col_index ++;
         }
-        $query_limit = ' limit '.$limit['offset'].', '.$limit['count'];
+        $query_limit = ' LIMIT '.$limit['offset'].', '.$limit['count'];
 
-        $query = 'select count(*) '.$query_src;
+        $query = 'SELECT COUNT(*) '.$query_src;
         $result = DB::select($query);
-        $length = json_decode(json_encode($result[0]), true)['count(*)'];
+        $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
 
-        $query = 'select * '.$query_src.$query_limit;
+        $query = 'SELECT * '.$query_src.$query_limit;
         $result = DB::select($query);
         $data = json_decode(json_encode($result), true);
 
@@ -75,18 +75,40 @@ class APIController extends Controller
     }
 
     public function fetchParts(Request $request) {
-        $part_number = $request->part_number;
+        $partNumber = $request->partNumber;
         $limit = $request->limit;
 
-        $query_src = ' from parts';
-        $query_src .= ' where Part_Number like "%'.$part_number.'%"';
-        $query_limit = ' limit '.$limit['offset'].', '.$limit['count'];
+        $query_src = ' FROM parts';
+        $query_src .= ' WHERE Part_Number LIKE "%'.$partNumber.'%"';
+        $query_limit = ' LIMIT '.$limit['offset'].', '.$limit['count'];
 
-        $query = 'select count(*) '.$query_src;
+        $query = 'SELECT COUNT(*) '.$query_src;
         $result = DB::select($query);
-        $length = json_decode(json_encode($result[0]), true)['count(*)'];
+        $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
 
-        $query = 'select * '.$query_src.$query_limit;
+        $query = 'SELECT * '.$query_src.$query_limit;
+        $result = DB::select($query);
+        $data = json_decode(json_encode($result), true);
+
+        return response()->json(array(
+            'data' => $data,
+            'length' => $length,
+            'query' => $query,
+        ));
+    }
+    public function fetchInterchanges(Request $request) {
+        $xRef = $request->xRef;
+        $limit = $request->limit;
+
+        $query_src = ' FROM interchanges LEFT JOIN parts ON(interchanges.Part_Target_ID = parts.Part_ID)';
+        $query_src .= ' WHERE Interchange_Part_Number LIKE "%'.$xRef.'%"';
+        $query_limit = ' LIMIT '.$limit['offset'].', '.$limit['count'];
+
+        $query = 'SELECT COUNT(*) '.$query_src;
+        $result = DB::select($query);
+        $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
+
+        $query = 'SELECT interchanges.*, parts.Part_Number '.$query_src.$query_limit;
         $result = DB::select($query);
         $data = json_decode(json_encode($result), true);
 

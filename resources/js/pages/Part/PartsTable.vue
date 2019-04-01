@@ -1,16 +1,14 @@
 <template>
-  <div class="container">
+  <div>
     <div class="row">
-      <div class="col-6">
+      <div class="col-4">
         <v-text-field
-          id="part_number"
-          label="Solo"
           placeholder="Part Number"
           solo
           v-model="partNumber"
         ></v-text-field>
       </div>
-      <div class="col-3">
+      <div class="col-2">
         <v-btn
           color="error"
           @click="searchParts"
@@ -70,13 +68,12 @@
         this.$store.dispatch('updatePartsTableVisibility', true);
       },
       getData(params, setRowData) {
-        console.log(params);
         if (params.page_number <= 0 || !params.page_length) {
           return;
         }
         var url = SERVER_URL + '/fetchParts';
         var formData = {
-          'part_number': this.partNumber,
+          'partNumber': this.partNumber,
           'limit': {
             'offset': (params.page_number - 1) * params.page_length,
             'count': params.page_length,

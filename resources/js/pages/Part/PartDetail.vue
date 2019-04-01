@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    Part Detail
   </v-container>
 </template>
 
