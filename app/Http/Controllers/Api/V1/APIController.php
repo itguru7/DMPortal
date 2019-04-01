@@ -42,7 +42,7 @@ class APIController extends Controller
         return response()->json($filters);
     }
 
-    public function fetchParts(Request $request) {
+    public function fetchApplications(Request $request) {
         $filters = $request->filters;
         $limit = $request->limit;
 
@@ -74,4 +74,26 @@ class APIController extends Controller
         ));
     }
 
+    public function fetchParts(Request $request) {
+        $part_number = $request->part_number;
+        $limit = $request->limit;
+
+        $query_src = ' from parts';
+        $query_src .= ' where Part_Number like "%'.$part_number.'%"';
+        $query_limit = ' limit '.$limit['offset'].', '.$limit['count'];
+
+        $query = 'select count(*) '.$query_src;
+        $result = DB::select($query);
+        $length = json_decode(json_encode($result[0]), true)['count(*)'];
+
+        $query = 'select * '.$query_src.$query_limit;
+        $result = DB::select($query);
+        $data = json_decode(json_encode($result), true);
+
+        return response()->json(array(
+            'data' => $data,
+            'length' => $length,
+            'query' => $query,
+        ));
+    }
 }

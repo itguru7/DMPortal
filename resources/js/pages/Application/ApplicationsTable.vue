@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="visiblePartsTable">
+  <div v-if="visibleApplicationsTable">
     <div class="row">
       <div class="col-xs-12 table-responsive">
         <datatable :columns="columns" :data="getData">
@@ -18,11 +18,11 @@
         <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
       </div>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapState } from 'vuex';
 
   export default {
     data() {
@@ -42,21 +42,21 @@
       }
     },
     computed: {
-      ...mapGetters([
-        'vendor',
-        'selectedMake',
-        'selectedModel',
-        'selectedYear',
-        'selectedEngine',
-        'visiblePartsTable',
-      ]),
+      ...mapState({
+        vendor:             state => state.filters.vendor,
+        selectedMake:       state => state.filters.selectedMake,
+        selectedModel:      state => state.filters.selectedModel,
+        selectedYear:       state => state.filters.selectedYear,
+        selectedEngine:     state => state.filters.selectedEngine,
+        visibleApplicationsTable:   state => state.global.visibleApplicationsTable,
+      }),
     },
     methods: {
-      getData(params, setRowData){
+      getData(params, setRowData) {
         if (params.page_number <= 0 || !params.page_length) {
           return;
         }
-        var url = SERVER_URL + '/fetchParts';
+        var url = SERVER_URL + '/fetchApplications';
         var formData = {
           'filters': {
             // 'Vendor': this.vendor,
@@ -78,8 +78,10 @@
             );
           })
       },
-      selectRow(row){
-        console.log(row);
+      selectRow(row) {
+        this.$store.commit('updateActivePage', 1);
+        this.$store.commit('updatePartNumber', row.Part_Number);
+        this.$store.dispatch('updatePartsTableVisibility', true);
       },
     }
   }

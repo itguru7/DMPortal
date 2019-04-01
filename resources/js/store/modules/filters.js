@@ -10,44 +10,9 @@ const state = {
   selectedModel: null,
   selectedYear: null,
   selectedEngine: null,
-
-  visiblePartsTable: false,
 }
 
 const getters = {
-  vendor: state => {
-    return state.vendor;
-  },
-
-  makes: state => {
-    return state.makes;
-  },
-  models: state => {
-    return state.models;
-  },
-  years: state => {
-    return state.years;
-  },
-  engines: state => {
-    return state.engines;
-  },
-
-  selectedMake: state => {
-    return state.selectedMake;
-  },
-  selectedModel: state => {
-    return state.selectedModel;
-  },
-  selectedYear: state => {
-    return state.selectedYear;
-  },
-  selectedEngine: state => {
-    return state.selectedEngine;
-  },
-
-  visiblePartsTable: state => {
-    return state.visiblePartsTable;
-  },
 }
 
 const mutations = {
@@ -79,10 +44,6 @@ const mutations = {
   },
   selectEngine: (state, payload) => {
     state.selectedEngine = payload;
-  },
-
-  updatePartsTableVisibility: (state, payload) => {
-    state.visiblePartsTable = payload;
   },
 }
 
@@ -144,19 +105,6 @@ const actions = {
       .then(res  => {
         context.commit('updateEngines', res.data['Engine_Info']);
       })
-  },
-
-  updatePartsTableVisibility: (context, payload) => {
-    if (!payload) {
-      context.commit('updatePartsTableVisibility', payload);
-    } else {
-      if (context.state.visiblePartsTable) {
-        context.commit('updatePartsTableVisibility', false);
-      }
-      setTimeout(function() {
-        context.commit('updatePartsTableVisibility', true);
-      }, 100);
-    }
   },
 }
 

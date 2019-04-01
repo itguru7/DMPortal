@@ -1,20 +1,18 @@
 <template>
   <v-container>
     <app-filters></app-filters>
-    <app-application-table></app-application-table>
+    <app-applications-table></app-applications-table>
   </v-container>
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
-
   import Filters  from './Filters.vue';
-  import ApplicationTable  from './ApplicationTable.vue';
+  import ApplicationsTable  from './ApplicationsTable.vue';
 
   export default {
     components: {
       appFilters: Filters,
-      appApplicationTable: ApplicationTable,
+      appApplicationsTable: ApplicationsTable,
     }
   }
 </script>

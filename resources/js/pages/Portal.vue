@@ -1,43 +1,43 @@
 <template>
-  <v-app>
-    <h2>Hello {{ vendor }}</h2>
-    <v-container>
-      <v-tabs
-        color="cyan"
-        dark
-        slider-color="yellow"
-      >
-        <v-tab href="#filter">
-          Application
-        </v-tab>
-        <v-tab href="#part">
-          Part Number
-        </v-tab>
-        <v-tab href="#xref">
-          Xref
-        </v-tab>
-        <v-tab-item :value="'filter'">
-          <div class="tab-item-wrapper">
-            <app-application></app-application>
-          </div>
-        </v-tab-item>
-        <v-tab-item :value="'part'">
-          <div class="tab-item-wrapper">
-            <app-part></app-part>
-          </div>
-        </v-tab-item>
-        <v-tab-item :value="'xref'">
-          <div class="tab-item-wrapper">
-            <app-xref></app-xref>
-          </div>
-        </v-tab-item>
-      </v-tabs>
-    </v-container>
-  </v-app>
+  <v-container>
+    <v-tabs
+      v-model="activePage"
+      color="cyan"
+      dark
+      slider-color="yellow"
+    >
+      <v-tab>
+        Application
+      </v-tab>
+      <v-tab>
+        Part Number
+      </v-tab>
+      <v-tab>
+        Xref
+      </v-tab>
+    </v-tabs>
+    <v-tabs-items v-model="activePage">
+      <v-tab-item>
+        <div class="tab-item-wrapper">
+          <app-application></app-application>
+        </div>
+      </v-tab-item>
+      <v-tab-item>
+        <div class="tab-item-wrapper">
+          <app-part></app-part>
+        </div>
+      </v-tab-item>
+      <v-tab-item>
+        <div class="tab-item-wrapper">
+          <app-xref></app-xref>
+        </div>
+      </v-tab-item>
+    </v-tabs-items>
+  </v-container>
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapState, mapActions } from 'vuex';
 
   import Application  from './Application/Application.vue';
   import Part         from './Part/Part.vue';
@@ -50,9 +50,14 @@
       appXref: Xref,
     },
     computed: {
-      ...mapGetters([
-        'vendor'
-      ])
+      activePage: {
+        get() {
+          return this.$store.state.global.activePage;
+        },
+        set(payload) {
+          this.$store.commit('updateActivePage', payload);
+        },
+      },
     },
     methods: {
       ...mapActions([

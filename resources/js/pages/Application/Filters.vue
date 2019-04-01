@@ -1,92 +1,90 @@
 <template>
-  <v-container>
-    <v-layout row wrap>
-      <v-flex md3>
-        <v-card class="pa-3">
-          <h3 class="text-center">Make</h3>
-          <select
-            id="filter_makes"
-            class="form-control"
-            v-model="selectedMake"
-            size="10"
+  <div class="row">
+    <div class="col-md-3 col-sm-6">
+      <div class="form-group">
+        <h3 class="text-center">Make</h3>
+        <select
+          id="filter_makes"
+          class="form-control"
+          v-model="selectedMake"
+          size="10"
+        >
+          <option
+            v-for="make in makes"
           >
-            <option
-              v-for="make in makes"
-            >
-              {{ make }}
-            </option>
-          </select>
-        </v-card>
-      </v-flex>
-      <v-flex md3>
-        <v-card class="pa-3">
-          <h3 class="text-center">Model</h3>
-          <select
-            id="filter_models"
-            class="form-control"
-            v-model="selectedModel"
-            size="10"
+            {{ make }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="form-group">
+        <h3 class="text-center">Model</h3>
+        <select
+          id="filter_models"
+          class="form-control"
+          v-model="selectedModel"
+          size="10"
+        >
+          <option
+            v-for="model in models"
           >
-            <option
-              v-for="model in models"
-            >
-              {{ model }}
-            </option>
-          </select>
-        </v-card>
-      </v-flex>
-      <v-flex md3>
-        <v-card class="pa-3">
-          <h3 class="text-center">Year</h3>
-          <select
-            id="filter_years"
-            class="form-control"
-            v-model="selectedYear"
-            size="10"
+            {{ model }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="form-group">
+        <h3 class="text-center">Year</h3>
+        <select
+          id="filter_years"
+          class="form-control"
+          v-model="selectedYear"
+          size="10"
+        >
+          <option
+            v-for="year in years"
           >
-            <option
-              v-for="year in years"
-            >
-              {{ year }}
-            </option>
-          </select>
-        </v-card>
-      </v-flex>
-      <v-flex md3>
-        <v-card class="pa-3">
-          <h3 class="text-center">Engine</h3>
-          <select
-            id="filter_engines"
-            class="form-control"
-            v-model="selectedEngine"
-            size="10"
+            {{ year }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="form-group">
+        <h3 class="text-center">Engine</h3>
+        <select
+          id="filter_engines"
+          class="form-control"
+          v-model="selectedEngine"
+          size="10"
+        >
+          <option
+            v-for="engine in engines"
           >
-            <option
-              v-for="engine in engines"
-            >
-              {{ engine }}
-            </option>
-          </select>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+            {{ engine }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapState } from 'vuex';
 
   export default {
     computed: {
-      ...mapGetters([
-        'makes',
-        'models',
-        'years',
-        'engines',
-      ]),
+      ...mapState({
+        makes:    state => state.filters.makes,
+        models:   state => state.filters.models,
+        years:    state => state.filters.years,
+        engines:  state => state.filters.engines,
+      }),
       selectedMake: {
         get() {
-          return this.$store.getters.selectedMake;
+          return this.$store.state.filters.selectedMake;
         },
         set(payload) {
           this.$store.commit('selectMake', payload);
@@ -94,7 +92,7 @@
       },
       selectedModel: {
         get() {
-          return this.$store.getters.selectedModel;
+          return this.$store.state.filters.selectedModel;
         },
         set(payload) {
           this.$store.commit('selectModel', payload);
@@ -102,7 +100,7 @@
       },
       selectedYear: {
         get() {
-          return this.$store.getters.selectedYear;
+          return this.$store.state.filters.selectedYear;
         },
         set(payload) {
           this.$store.commit('selectYear', payload);
@@ -110,7 +108,7 @@
       },
       selectedEngine: {
         get() {
-          return this.$store.getters.selectedEngine;
+          return this.$store.state.filters.selectedEngine;
         },
         set(payload) {
           this.$store.commit('selectEngine', payload);
@@ -154,12 +152,11 @@
       },
       selectedEngine(newValue, oldValue) {
         if (newValue) {
-          this.$store.dispatch('updatePartsTableVisibility', true);
+          this.$store.dispatch('updateApplicationsTableVisibility', true);
         } else {
-          this.$store.dispatch('updatePartsTableVisibility', false);
+          this.$store.dispatch('updateApplicationsTableVisibility', false);
         }
       },
-
     },
   }
 </script>
