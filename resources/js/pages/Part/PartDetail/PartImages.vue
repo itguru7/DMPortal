@@ -6,7 +6,7 @@
         <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
       </div>
       <div class="col-xs-offset-2 col-xs-2 image-scrollview">
-        <v-card v-for="(asset, index) in assets" :key="index" class="mb-2">
+        <v-card class="mb-2" v-for="(asset, index) in assets" :key="'image-'+index">
           <v-img @click="selectAsset(index)" :src="getAssetThumbnail(index)"></v-img>
         </v-card>
       </div>

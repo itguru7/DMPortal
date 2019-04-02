@@ -29,6 +29,8 @@ class APIController extends Controller
             $query = 'SELECT distinct `'.$col.'`'.$query_src;
             if ($col == 'Year') {
                 $query .= ' ORDER BY `'.$col.'` desc';
+            } else {
+                $query .= ' ORDER BY `'.$col.'` asc';
             }
             $result = DB::select($query);
             $result = json_decode(json_encode($result), true);
@@ -39,7 +41,10 @@ class APIController extends Controller
             }
         }
 
-        return response()->json($filters);
+        return response()->json(array(
+            'data' => $filters,
+            'query' => $query,
+        ));
     }
 
     public function fetchApplications(Request $request) {

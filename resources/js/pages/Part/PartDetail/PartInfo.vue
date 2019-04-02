@@ -5,7 +5,7 @@
 
     <h4>Part Information</h4>
     <hr>
-    <div v-for="info in information" :key="info">
+    <div v-for="(info, index) in information" :key="'information-'+index">
       {{info['Information']}}
     </div>
     <br>
@@ -13,7 +13,7 @@
 
     <h4>Part Attributes</h4>
     <hr>
-    <div v-for="attribute in attributes" :key="attribute">
+    <div v-for="(attribute, index) in attributes" :key="'attribute-'+index">
       {{attribute['Attribute']}}
     </div>
   </v-container>
