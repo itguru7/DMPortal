@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container class="part-info-container">
     <h2>{{selectedPartNumber}}</h2>
     <br>
 
@@ -16,7 +16,7 @@
     <div v-for="attribute in attributes" :key="attribute">
       {{attribute['Attribute']}}
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -64,4 +64,8 @@
 </script>
 
 <style scoped>
+  .part-info-container {
+    height: 400px;
+    overflow-y: scroll;
+  }
 </style>

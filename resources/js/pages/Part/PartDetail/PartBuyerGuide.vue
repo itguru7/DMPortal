@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <div>
       <h2>{{selectedPartNumber}}</h2>
     </div>
@@ -11,7 +11,7 @@
         <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
       </div>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>

@@ -1,19 +1,17 @@
 <template>
-  <div v-if="assets && assets.length">
-    <div>
-      <h2>{{selectedPartNumber}}</h2>
-    </div>
+  <v-container v-if="assets && assets.length">
+    <h2>{{selectedPartNumber}}</h2>
     <div class="row">
       <div class="col-xs-8">
         <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
       </div>
-      <div class="col-xs-offset-1 col-xs-3 image-scrollview">
+      <div class="col-xs-offset-2 col-xs-2 image-scrollview">
         <v-card v-for="(asset, index) in assets" :key="index" class="mb-2">
           <v-img @click="selectAsset(index)" :src="getAssetThumbnail(index)"></v-img>
         </v-card>
       </div>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
