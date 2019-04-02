@@ -3,10 +3,16 @@
     <div>
       <h2>{{selectedPartNumber}}</h2>
     </div>
-    <div>
-      <vue-magnifier v-bind:src="getAssetThumbnail(selectedAssetIndex)" v-bind:src-large="getAssetImage(selectedAssetIndex)" />
+    <div class="row">
+      <div class="col-xs-8">
+        <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
+      </div>
+      <div class="col-xs-offset-1 col-xs-3 image-scrollview">
+        <v-card v-for="(asset, index) in assets" :key="index" class="mb-2">
+          <v-img @click="selectAsset(index)" :src="getAssetThumbnail(index)"></v-img>
+        </v-card>
+      </div>
     </div>
-    <p>{{getAssetThumbnail(selectedAssetIndex)}}</p>
   </div>
 </template>
 
@@ -51,10 +57,24 @@
       getAssetImage(index) {
         return 'http://'+this.vendor+'.aftermarketdata.com/wp-content/assets/'+this.assets[index]['File_Name'];
       },
+      selectAsset(index) {
+        this.selectedAssetIndex = index;
+      }
     },
   }
 
 </script>
 
+<style>
+  .vue-magnifier-container .preview {
+    width: 100% !important;
+    height: 300px !important;
+  }
+</style>
+
 <style scoped>
+  .image-scrollview {
+    height: 300px;
+    overflow-y: scroll;
+  }
 </style>

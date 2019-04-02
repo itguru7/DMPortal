@@ -9,9 +9,7 @@
           v-model="selectedMake"
           size="10"
         >
-          <option
-            v-for="make in makes"
-          >
+          <option v-for="make in makes" :key="make">
             {{ make }}
           </option>
         </select>
@@ -26,9 +24,7 @@
           v-model="selectedModel"
           size="10"
         >
-          <option
-            v-for="model in models"
-          >
+          <option v-for="model in models" :key="model">
             {{ model }}
           </option>
         </select>
@@ -43,9 +39,7 @@
           v-model="selectedYear"
           size="10"
         >
-          <option
-            v-for="year in years"
-          >
+          <option v-for="year in years" :key="year">
             {{ year }}
           </option>
         </select>
@@ -60,9 +54,7 @@
           v-model="selectedEngine"
           size="10"
         >
-          <option
-            v-for="engine in engines"
-          >
+          <option v-for="engine in engines" :key="engine">
             {{ engine }}
           </option>
         </select>

@@ -2,21 +2,20 @@
   <div>
     <h2>{{selectedPartNumber}}</h2>
     <br>
+
     <h4>Part Information</h4>
     <hr>
-    <template v-for="info in information">
-      <div>
-        {{info['Information']}}
-      </div>
-    </template>
+    <div v-for="info in information" :key="info">
+      {{info['Information']}}
+    </div>
     <br>
+    <br>
+
     <h4>Part Attributes</h4>
     <hr>
-    <template v-for="attribute in attributes">
-      <div>
-        {{attribute['Attribute']}}
-      </div>
-    </template>
+    <div v-for="attribute in attributes" :key="attribute">
+      {{attribute['Attribute']}}
+    </div>
   </div>
 </template>
 
