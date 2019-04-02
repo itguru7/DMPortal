@@ -2,9 +2,9 @@
   <v-container>
     <v-tabs
       v-model="activePage"
-      color="cyan"
+      color="purple"
       dark
-      slider-color="yellow"
+      slider-color="white"
     >
       <v-tab>
         Application
@@ -15,24 +15,16 @@
       <v-tab>
         Xref
       </v-tab>
+      <v-tab-item>
+        <app-application></app-application>
+      </v-tab-item>
+      <v-tab-item>
+        <app-part></app-part>
+      </v-tab-item>
+      <v-tab-item>
+        <app-xref></app-xref>
+      </v-tab-item>
     </v-tabs>
-    <v-tabs-items v-model="activePage">
-      <v-tab-item>
-        <div class="tab-item-wrapper">
-          <app-application></app-application>
-        </div>
-      </v-tab-item>
-      <v-tab-item>
-        <div class="tab-item-wrapper">
-          <app-part></app-part>
-        </div>
-      </v-tab-item>
-      <v-tab-item>
-        <div class="tab-item-wrapper">
-          <app-xref></app-xref>
-        </div>
-      </v-tab-item>
-    </v-tabs-items>
   </v-container>
 </template>
 
@@ -46,8 +38,8 @@
   export default {
     components: {
       appApplication: Application,
-      appPart: Part,
-      appXref: Xref,
+      appPart:        Part,
+      appXref:        Xref,
     },
     computed: {
       activePage: {

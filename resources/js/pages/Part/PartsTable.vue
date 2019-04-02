@@ -6,6 +6,7 @@
           placeholder="Part Number"
           solo
           v-model="partNumber"
+          @keyup.enter="searchParts"
         ></v-text-field>
       </div>
       <div class="col-2">
@@ -85,10 +86,15 @@
               res.data['data'],
               res.data['length'],
             );
+            if (res.data['length'] == '1') {
+              this.$store.dispatch('updateSelectedPartNumber', res.data['data'][0]['Part_Number']);
+            } else {
+              this.$store.dispatch('updateSelectedPartNumber', null);
+            }
           })
       },
       selectRow(row) {
-        console.log(row);
+        this.$store.dispatch('updateSelectedPartNumber', row.Part_Number);
       },
     }
   }

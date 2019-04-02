@@ -6,6 +6,7 @@
           placeholder="Xref"
           solo
           v-model="xRef"
+          @keyup.enter="searchInterchanges"
         ></v-text-field>
       </div>
       <div class="col-1">
@@ -43,7 +44,7 @@
     data() {
       return {
         columns: [
-          { label: 'Part_Target_ID', field: 'Part_Target_ID', sortable: false},
+          { label: 'Part_Number', field: 'Part_Number', sortable: false},
           { label: 'Brand', field: 'Brand', sortable: false},
           { label: 'Interchange_Part_Number', field: 'Interchange_Part_Number', sortable: false},
         ],

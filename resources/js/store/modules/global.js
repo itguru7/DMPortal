@@ -1,11 +1,13 @@
 const state = {
   activePage: null,
+  activePartPage: null,
 
   visibleApplicationsTable: false,
   visiblePartsTable: false,
   visibleInterchangesTable: false,
 
   partNumber: '',
+  selectedPartNumber: null,
   xRef: '',
 }
 
@@ -15,6 +17,9 @@ const getters = {
 const mutations = {
   updateActivePage: (state, payload) => {
     state.activePage = payload;
+  },
+  updateActivePartPage: (state, payload) => {
+    state.activePartPage = payload;
   },
 
   updatePartNumber: (state, payload) => {
@@ -32,6 +37,10 @@ const mutations = {
   },
   updateInterchangesTableVisibility: (state, payload) => {
     state.visibleInterchangesTable = payload;
+  },
+
+  updateSelectedPartNumber: (state, payload) => {
+    state.selectedPartNumber = payload;
   },
 }
 
@@ -72,29 +81,13 @@ const actions = {
       }, 100);
     }
   },
-  fetchPart: (context, payload = null) => {
-    if (!payload) {
-      payload = context.state.partNumber
-    }
-    var url = SERVER_URL + '/fetchParts';
-    var formData = {
-      'filters': {
-        // 'Vendor': context.rootState.filters.vendor,
-        // 'Make': context.rootState.filters.selectedMake,
-        // 'Model': context.rootState.filters.selectedModel,
-        // 'Year': context.rootState.filters.selectedYear,
-        // 'Engine_Info': context.rootState.filters.selectedEngine,
-        'Part_Number': payload,
-      },
-      'limit': {
-        'offset': (params.page_number - 1) * params.page_length,
-        'count': params.page_length,
-      }
-    }
-    axios.post(url, formData)
-      .then(res  => {
-      })
-  }
+  updateSelectedPartNumber: (context, payload) => {
+    context.commit('updateSelectedPartNumber', null);
+    setTimeout(function() {
+      context.commit('updateSelectedPartNumber', payload);
+    }, 100);
+    context.commit('updateActivePartPage', 0);
+  },
 }
 
 export default {

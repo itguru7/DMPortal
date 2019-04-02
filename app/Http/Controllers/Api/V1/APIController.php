@@ -67,11 +67,11 @@ class APIController extends Controller
             $query_sort = ' ORDER BY `'.$sort['sort_by'].'` '.$sort['sort_dir'];
         }
 
-        $query = 'SELECT COUNT(*) '.$query_src;
+        $query = 'SELECT COUNT(*)'.$query_src;
         $result = DB::select($query);
         $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
 
-        $query = 'SELECT * '.$query_src.$query_sort.$query_limit;
+        $query = 'SELECT *'.$query_src.$query_sort.$query_limit;
         $result = DB::select($query);
         $data = json_decode(json_encode($result), true);
 
@@ -90,11 +90,11 @@ class APIController extends Controller
         $query_src .= ' WHERE Part_Number LIKE "%'.$partNumber.'%"';
         $query_limit = ' LIMIT '.$limit['offset'].', '.$limit['count'];
 
-        $query = 'SELECT COUNT(*) '.$query_src;
+        $query = 'SELECT COUNT(*)'.$query_src;
         $result = DB::select($query);
         $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
 
-        $query = 'SELECT * '.$query_src.$query_limit;
+        $query = 'SELECT *'.$query_src.$query_limit;
         $result = DB::select($query);
         $data = json_decode(json_encode($result), true);
 
@@ -112,11 +112,93 @@ class APIController extends Controller
         $query_src .= ' WHERE Interchange_Part_Number LIKE "%'.$xRef.'%"';
         $query_limit = ' LIMIT '.$limit['offset'].', '.$limit['count'];
 
-        $query = 'SELECT COUNT(*) '.$query_src;
+        $query = 'SELECT COUNT(*)'.$query_src;
         $result = DB::select($query);
         $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
 
-        $query = 'SELECT interchanges.*, parts.Part_Number '.$query_src.$query_limit;
+        $query = 'SELECT interchanges.*, parts.Part_Number'.$query_src.$query_limit;
+        $result = DB::select($query);
+        $data = json_decode(json_encode($result), true);
+
+        return response()->json(array(
+            'data' => $data,
+            'length' => $length,
+            'query' => $query,
+        ));
+    }
+    public function fetchAssets(Request $request) {
+        $partNumber = $request->partNumber;
+
+        $query_src = ' FROM assets LEFT JOIN parts ON(assets.Part_Target_ID = parts.Part_ID)';
+        $query_src .= ' WHERE Part_Number LIKE "'.$partNumber.'"';
+
+        $query = 'SELECT COUNT(*)'.$query_src;
+        $result = DB::select($query);
+        $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
+
+        $query = 'SELECT assets.*, parts.Part_Number'.$query_src.' ORDER BY Asset_Order asc';
+        $result = DB::select($query);
+        $data = json_decode(json_encode($result), true);
+
+        return response()->json(array(
+            'data' => $data,
+            'length' => $length,
+            'query' => $query,
+        ));
+    }
+    public function fetchInformation(Request $request) {
+        $partNumber = $request->partNumber;
+
+        $query_src = ' FROM information LEFT JOIN parts ON(information.Part_Target_ID = parts.Part_ID)';
+        $query_src .= ' WHERE Part_Number LIKE "'.$partNumber.'"';
+
+        $query = 'SELECT COUNT(*)'.$query_src;
+        $result = DB::select($query);
+        $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
+
+        $query = 'SELECT information.*, parts.Part_Number'.$query_src.' ORDER BY Information_Order asc';
+        $result = DB::select($query);
+        $data = json_decode(json_encode($result), true);
+
+        return response()->json(array(
+            'data' => $data,
+            'length' => $length,
+            'query' => $query,
+        ));
+    }
+    public function fetchAttributes(Request $request) {
+        $partNumber = $request->partNumber;
+
+        $query_src = ' FROM attributes LEFT JOIN parts ON(attributes.Part_Target_ID = parts.Part_ID)';
+        $query_src .= ' WHERE Part_Number LIKE "'.$partNumber.'"';
+
+        $query = 'SELECT COUNT(*)'.$query_src;
+        $result = DB::select($query);
+        $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
+
+        $query = 'SELECT attributes.*, parts.Part_Number'.$query_src.' ORDER BY Attribute_Order asc';
+        $result = DB::select($query);
+        $data = json_decode(json_encode($result), true);
+
+        return response()->json(array(
+            'data' => $data,
+            'length' => $length,
+            'query' => $query,
+        ));
+    }
+    public function fetchBuyerGuide(Request $request) {
+        $partNumber = $request->partNumber;
+        $limit = $request->limit;
+
+        $query_src = ' FROM buyers_guide LEFT JOIN parts ON(buyers_guide.Part_Target_ID = parts.Part_ID)';
+        $query_src .= ' WHERE Part_Number LIKE "'.$partNumber.'"';
+        $query_limit = ' LIMIT '.$limit['offset'].', '.$limit['count'];
+
+        $query = 'SELECT COUNT(*)'.$query_src;
+        $result = DB::select($query);
+        $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
+
+        $query = 'SELECT buyers_guide.*, parts.Part_Number'.$query_src.$query_limit;
         $result = DB::select($query);
         $data = json_decode(json_encode($result), true);
 

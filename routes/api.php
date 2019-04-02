@@ -14,6 +14,12 @@ use Illuminate\Http\Request;
 */
 
 Route::post('fetchFilters', 'APIController@fetchFilters');
+
 Route::post('fetchApplications', 'APIController@fetchApplications');
 Route::post('fetchParts', 'APIController@fetchParts');
 Route::post('fetchInterchanges', 'APIController@fetchInterchanges');
+
+Route::post('fetchAssets', 'APIController@fetchAssets');
+Route::post('fetchInformation', 'APIController@fetchInformation');
+Route::post('fetchAttributes', 'APIController@fetchAttributes');
+Route::post('fetchBuyerGuide', 'APIController@fetchBuyerGuide');
