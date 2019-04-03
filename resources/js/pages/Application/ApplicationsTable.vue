@@ -28,7 +28,6 @@
           { label: 'Notes', field: 'Notes', sortable: true},
           { label: 'Quantity', field: 'Quantity', sortable: false},
           { label: 'Part Number', field: 'Part_Number', sortable: false},
-          { label: 'Engine Type', field: 'Engine_Info', sortable: false},
         ],
         page: 1,
         per_page: 10,
