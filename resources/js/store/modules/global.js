@@ -53,6 +53,7 @@ const mutations = {
   },
 
   updateSelectedPart: (state, payload) => {
+    state.updateActivePartPage = 0;
     if (payload) {
       state.selectedPartNumber = payload.partNumber;
       state.selectedPartID = payload.partID;
@@ -116,7 +117,6 @@ const actions = {
     setTimeout(function() {
       context.commit('updateSelectedPart', payload);
     }, 100);
-    context.commit('updateActivePartPage', 0);
   },
 }
 

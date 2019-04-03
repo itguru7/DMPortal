@@ -54,6 +54,11 @@
         },
       },
     },
+    watch: {
+      selectedPartID(newValue, oldValue) {
+        this.$store.commit('updateActivePartPage', 0);
+      }
+    }
   }
 </script>
 
