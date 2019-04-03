@@ -42,9 +42,6 @@
       appXref:        Xref,
     },
     computed: {
-      ...mapState({
-        subdomainID:    state => state.global.subdomainID,
-      }),
       activePage: {
         get() {
           return this.$store.state.global.activePage;
@@ -55,8 +52,16 @@
       },
     },
     created() {
-      this.$store.commit('updateSubdomain', this.$route.params.vendor);
-      this.$store.dispatch('fetchSubdomainID', this.$route.params.vendor);
+      // var vendor = this.$route.params.vendor;
+
+      const parts = window.location.host.split('.');
+      if (parts.length != 3) {
+        return;
+      }
+      var vendor = parts[0];
+
+      this.$store.commit('updateSubdomain', vendor);
+      this.$store.dispatch('fetchSubdomainID', vendor);
     },
 
   }

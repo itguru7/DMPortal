@@ -1,8 +1,7 @@
 
 require('./bootstrap');
 
-import { SERVER_URL } from './url';
-window.SERVER_URL = SERVER_URL;
+window.SERVER_URL = window.location.origin + '/api';
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';

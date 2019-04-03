@@ -11,11 +11,22 @@
 |
 */
 
-Route::prefix('admin')->group(function () {
+// Route::prefix('admin')->group(function () {
+//     Auth::routes();
+//     Route::get('', 'AdminController@index')->name('admin');
+// });
+
+// Route::get('/{vue_capture}', function () {
+//     return view('portal');
+// })->where('vue_capture', '[\/\w\.-]*');
+
+Route::domain('admin.aftermarketdata.com')->group(function () {
     Auth::routes();
     Route::get('', 'AdminController@index')->name('admin');
 });
 
-Route::get('/{vue_capture}', function () {
-    return view('portal');
-})->where('vue_capture', '[\/\w\.-]*');
+Route::domain('{vendor}.aftermarketdata.com')->group(function () {
+    Route::get('/', function () {
+        return view('portal');
+    });
+});
