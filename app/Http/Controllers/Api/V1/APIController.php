@@ -8,6 +8,26 @@ use Illuminate\Support\Facades\DB;
 
 class APIController extends Controller
 {
+    public function fetchSubdomainID(Request $request) {
+        $vendor = $request->Vendor;
+
+        $query = 'SELECT SubdomainID FROM subdomains WHERE Vendor LIKE "%'.$vendor.'%" LIMIT 1';
+
+        $result = DB::select($query);
+        $data = json_decode(json_encode($result), true);
+
+        if (sizeof($data) == 1) {
+            $data = $data[0]['SubdomainID'];
+        } else {
+            $data = 0;
+        }
+
+        return response()->json(array(
+            'data' => $data,
+            'query' => $query,
+        ));
+    }
+
     public function fetchFilters(Request $request) {
         $input = $request->input;
         $output = $request->output;
@@ -20,7 +40,11 @@ class APIController extends Controller
             } else {
                 $query_src .= ' AND';
             }
-            $query_src .= ' `'.$col.'` LIKE "%'.$value.'%"';
+            if ($col == 'Subdomain_ID') {
+                $query_src .= ' `'.$col.'` = '.$value;
+            } else {
+                $query_src .= ' `'.$col.'` LIKE "%'.$value.'%"';
+            }
             $col_index ++;
         }
 
@@ -60,7 +84,11 @@ class APIController extends Controller
             } else {
                 $query_src .= ' AND';
             }
-            $query_src .= ' `'.$col.'` LIKE "%'.$value.'%"';
+            if ($col == 'Subdomain_ID') {
+                $query_src .= ' `'.$col.'` = '.$value;
+            } else {
+                $query_src .= ' `'.$col.'` LIKE "%'.$value.'%"';
+            }
             $col_index ++;
         }
         $query_limit = '';
@@ -88,11 +116,11 @@ class APIController extends Controller
     }
 
     public function fetchParts(Request $request) {
+        $subdomainID = $request->Subdomain_ID;
         $partNumber = $request->partNumber;
         $limit = $request->limit;
 
-        $query_src = ' FROM parts';
-        $query_src .= ' WHERE Part_Number LIKE "%'.$partNumber.'%"';
+        $query_src = ' FROM parts WHERE Subdomain_ID = '.$subdomainID.' and Part_Number LIKE "'.$partNumber.'%"';
         $query_limit = ' LIMIT '.$limit['offset'].', '.$limit['count'];
 
         $query = 'SELECT COUNT(*)'.$query_src;
@@ -110,18 +138,18 @@ class APIController extends Controller
         ));
     }
     public function fetchInterchanges(Request $request) {
+        $subdomainID = $request->Subdomain_ID;
         $xRef = $request->xRef;
         $limit = $request->limit;
 
-        $query_src = ' FROM interchanges LEFT JOIN parts ON(interchanges.Part_Target_ID = parts.Part_ID)';
-        $query_src .= ' WHERE Interchange_Part_Number LIKE "%'.$xRef.'%"';
+        $query_src = ' FROM interchanges WHERE Subdomain_ID = '.$subdomainID.' and Interchange_Part_Number LIKE "'.$xRef.'%"';
         $query_limit = ' LIMIT '.$limit['offset'].', '.$limit['count'];
 
         $query = 'SELECT COUNT(*)'.$query_src;
         $result = DB::select($query);
         $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
 
-        $query = 'SELECT interchanges.*, parts.Part_Number'.$query_src.$query_limit;
+        $query = 'SELECT *'.$query_src.$query_limit;
         $result = DB::select($query);
         $data = json_decode(json_encode($result), true);
 
@@ -132,78 +160,62 @@ class APIController extends Controller
         ));
     }
     public function fetchAssets(Request $request) {
-        $partNumber = $request->partNumber;
+        $partID = $request->Part_ID;
 
-        $query_src = ' FROM assets LEFT JOIN parts ON(assets.Part_Target_ID = parts.Part_ID)';
-        $query_src .= ' WHERE Part_Number LIKE "'.$partNumber.'"';
+        $query_src = ' FROM assets WHERE Part_Target_ID = '.$partID;
 
-        $query = 'SELECT COUNT(*)'.$query_src;
-        $result = DB::select($query);
-        $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
-
-        $query = 'SELECT assets.*, parts.Part_Number'.$query_src.' ORDER BY Asset_Order asc';
+        $query = 'SELECT *'.$query_src.' ORDER BY Asset_Order asc';
         $result = DB::select($query);
         $data = json_decode(json_encode($result), true);
 
         return response()->json(array(
             'data' => $data,
-            'length' => $length,
+            'length' => sizeof($data),
             'query' => $query,
         ));
     }
     public function fetchInformation(Request $request) {
-        $partNumber = $request->partNumber;
+        $partID = $request->Part_ID;
 
-        $query_src = ' FROM information LEFT JOIN parts ON(information.Part_Target_ID = parts.Part_ID)';
-        $query_src .= ' WHERE Part_Number LIKE "'.$partNumber.'"';
+        $query_src = ' FROM information WHERE Part_Target_ID = '.$partID;
 
-        $query = 'SELECT COUNT(*)'.$query_src;
-        $result = DB::select($query);
-        $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
-
-        $query = 'SELECT information.*, parts.Part_Number'.$query_src.' ORDER BY Information_Order asc';
+        $query = 'SELECT *'.$query_src.' ORDER BY Information_Order asc';
         $result = DB::select($query);
         $data = json_decode(json_encode($result), true);
 
         return response()->json(array(
             'data' => $data,
-            'length' => $length,
+            'length' => sizeof($data),
             'query' => $query,
         ));
     }
     public function fetchAttributes(Request $request) {
-        $partNumber = $request->partNumber;
+        $partID = $request->Part_ID;
 
-        $query_src = ' FROM attributes LEFT JOIN parts ON(attributes.Part_Target_ID = parts.Part_ID)';
-        $query_src .= ' WHERE Part_Number LIKE "'.$partNumber.'"';
+        $query_src = ' FROM attributes WHERE Part_Target_ID = '.$partID;
 
-        $query = 'SELECT COUNT(*)'.$query_src;
-        $result = DB::select($query);
-        $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
-
-        $query = 'SELECT attributes.*, parts.Part_Number'.$query_src.' ORDER BY Attribute_Order asc';
+        $query = 'SELECT *'.$query_src.' ORDER BY Attribute_Order asc';
         $result = DB::select($query);
         $data = json_decode(json_encode($result), true);
 
         return response()->json(array(
             'data' => $data,
-            'length' => $length,
+            'length' => sizeof($data),
             'query' => $query,
         ));
     }
     public function fetchBuyerGuide(Request $request) {
-        $partNumber = $request->partNumber;
+        $partID = $request->Part_ID;
         $limit = $request->limit;
 
-        $query_src = ' FROM buyers_guide LEFT JOIN parts ON(buyers_guide.Part_Target_ID = parts.Part_ID)';
-        $query_src .= ' WHERE Part_Number LIKE "'.$partNumber.'"';
+        $query_src = ' FROM buyers_guide WHERE Part_Target_ID = '.$partID;
         $query_limit = ' LIMIT '.$limit['offset'].', '.$limit['count'];
 
         $query = 'SELECT COUNT(*)'.$query_src;
         $result = DB::select($query);
         $length = json_decode(json_encode($result[0]), true)['COUNT(*)'];
 
-        $query = 'SELECT buyers_guide.*, parts.Part_Number'.$query_src.$query_limit;
+        $query = 'SELECT *'.$query_src.' ORDER BY Buyers_Guide_Order asc'.$query_limit;
         $result = DB::select($query);
         $data = json_decode(json_encode($result), true);
 

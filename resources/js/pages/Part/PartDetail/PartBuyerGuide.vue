@@ -31,7 +31,8 @@
     },
     computed: {
     ...mapState({
-        selectedPartNumber:       state => state.global.selectedPartNumber,
+        selectedPartID:       state => state.global.selectedPartID,
+        selectedPartNumber:   state => state.global.selectedPartNumber,
       }),
     },
     methods: {
@@ -41,7 +42,7 @@
         }
         var url = SERVER_URL + '/fetchBuyerGuide';
         var formData = {
-          'partNumber': this.selectedPartNumber,
+          'Part_ID': this.selectedPartID,
           'limit': {
             'offset': (params.page_number - 1) * params.page_length,
             'count': params.page_length,

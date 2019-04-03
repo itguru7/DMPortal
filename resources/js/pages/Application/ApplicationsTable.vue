@@ -36,7 +36,7 @@
     },
     computed: {
       ...mapState({
-        vendor:             state => state.filters.vendor,
+        subdomainID:        state => state.global.subdomainID,
         selectedMake:       state => state.filters.selectedMake,
         selectedModel:      state => state.filters.selectedModel,
         selectedYear:       state => state.filters.selectedYear,
@@ -52,7 +52,7 @@
         var url = SERVER_URL + '/fetchApplications';
         var formData = {
           'filters': {
-            // 'Vendor': this.vendor,
+            'Subdomain_ID': this.subdomainID,
             'Make': this.selectedMake,
             'Model': this.selectedModel,
             'Year': this.selectedYear,
@@ -78,6 +78,7 @@
       selectRow(row) {
         this.$store.commit('updateActivePage', 1);
         this.$store.commit('updatePartNumber', row.Part_Number);
+        this.$store.commit('updateSelectedPart', {partID: row.Part_Target_ID, partNumber: row.Part_Number});
         this.$store.dispatch('updatePartsTableVisibility', true);
       },
     }

@@ -1,6 +1,4 @@
 const state = {
-  vendor: '',
-
   makes: [],
   models: [],
   years: [],
@@ -16,10 +14,6 @@ const getters = {
 }
 
 const mutations = {
-  updateVendor: (state, payload) => {
-    state.vendor = payload;
-  },
-
   updateMakes: (state, payload) => {
     state.makes = payload;
   },
@@ -52,7 +46,7 @@ const actions = {
     var url = SERVER_URL + '/fetchFilters';
     var formData = {
       'input': {
-        // 'Vendor': context.state.vendor
+        'Subdomain_ID': context.rootState.global.subdomainID
       },
       'output': ['Make']
     }
@@ -65,7 +59,7 @@ const actions = {
     var url = SERVER_URL + '/fetchFilters';
     var formData = {
       'input': {
-        // 'Vendor': context.state.vendor,
+        'Subdomain_ID': context.rootState.global.subdomainID,
         'Make': context.state.selectedMake
       },
       'output': ['Model']
@@ -79,7 +73,7 @@ const actions = {
     var url = SERVER_URL + '/fetchFilters';
     var formData = {
       'input': {
-        // 'Vendor': context.state.vendor,
+        'Subdomain_ID': context.rootState.global.subdomainID,
         'Make': context.state.selectedMake,
         'Model': context.state.selectedModel
       },
@@ -94,7 +88,7 @@ const actions = {
     var url = SERVER_URL + '/fetchFilters';
     var formData = {
       'input': {
-        // 'Vendor': context.state.vendor,
+        'Subdomain_ID': context.rootState.global.subdomainID,
         'Make': context.state.selectedMake,
         'Model': context.state.selectedModel,
         'Year': context.state.selectedYear

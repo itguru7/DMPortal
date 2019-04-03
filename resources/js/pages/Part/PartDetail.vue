@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="selectedPartNumber">
+  <v-container v-if="selectedPartID">
     <v-tabs
       v-model="activePartPage"
       color="cyan"
@@ -43,7 +43,7 @@
     },
     computed: {
       ...mapState({
-        selectedPartNumber:   state => state.global.selectedPartNumber,
+        selectedPartID:   state => state.global.selectedPartID,
       }),
       activePartPage: {
         get() {

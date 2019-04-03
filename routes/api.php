@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::post('fetchSubdomainID', 'APIController@fetchSubdomainID');
 Route::post('fetchFilters', 'APIController@fetchFilters');
 
 Route::post('fetchApplications', 'APIController@fetchApplications');

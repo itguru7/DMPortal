@@ -6,8 +6,8 @@
 </template>
 
 <script>
-  import Filters  from './Filters.vue';
-  import ApplicationsTable  from './ApplicationsTable.vue';
+  import Filters  from './Application/Filters.vue';
+  import ApplicationsTable  from './Application/ApplicationsTable.vue';
 
   export default {
     components: {

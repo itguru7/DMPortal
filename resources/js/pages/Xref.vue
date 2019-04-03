@@ -54,6 +54,7 @@
     },
     computed: {
     ...mapState({
+        subdomainID:                state => state.global.subdomainID,
         visibleInterchangesTable:   state => state.global.visibleInterchangesTable,
       }),
       xRef: {
@@ -75,6 +76,7 @@
         }
         var url = SERVER_URL + '/fetchInterchanges';
         var formData = {
+          'Subdomain_ID': this.subdomainID,
           'xRef': this.xRef,
           'limit': {
             'offset': (params.page_number - 1) * params.page_length,
@@ -92,6 +94,7 @@
       selectRow(row) {
         this.$store.commit('updateActivePage', 1);
         this.$store.commit('updatePartNumber', row.Part_Number);
+        this.$store.commit('updateSelectedPart', {partID: row.Part_Target_ID, partNumber: row.Part_Number});
         this.$store.dispatch('updatePartsTableVisibility', true);
       },
     }

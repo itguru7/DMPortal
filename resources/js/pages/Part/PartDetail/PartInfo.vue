@@ -31,7 +31,8 @@
     },
     computed: {
     ...mapState({
-        selectedPartNumber:       state => state.global.selectedPartNumber,
+        selectedPartID:     state => state.global.selectedPartID,
+        selectedPartNumber: state => state.global.selectedPartNumber,
       }),
     },
     mounted() {
@@ -42,7 +43,7 @@
       fetchInformation() {
         var url = SERVER_URL + '/fetchInformation';
         var formData = {
-          'partNumber': this.selectedPartNumber,
+          'Part_ID': this.selectedPartID,
         }
         axios.post(url, formData)
           .then(res  => {
@@ -52,7 +53,7 @@
       fetchAttributes() {
         var url = SERVER_URL + '/fetchAttributes';
         var formData = {
-          'partNumber': this.selectedPartNumber,
+          'Part_ID': this.selectedPartID,
         }
         axios.post(url, formData)
           .then(res  => {

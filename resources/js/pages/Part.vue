@@ -12,8 +12,8 @@
 </template>
 
 <script>
-  import PartsTable   from './PartsTable.vue';
-  import PartDetail   from './PartDetail.vue';
+  import PartsTable   from './Part/PartsTable.vue';
+  import PartDetail   from './Part/PartDetail.vue';
 
   export default {
     components: {

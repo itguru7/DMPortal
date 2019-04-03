@@ -29,11 +29,11 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex';
+  import { mapState } from 'vuex';
 
-  import Application  from './Application/Application.vue';
-  import Part         from './Part/Part.vue';
-  import Xref         from './Xref/Xref.vue';
+  import Application  from './pages/Application.vue';
+  import Part         from './pages/Part.vue';
+  import Xref         from './pages/Xref.vue';
 
   export default {
     components: {
@@ -42,6 +42,9 @@
       appXref:        Xref,
     },
     computed: {
+      ...mapState({
+        subdomainID:    state => state.global.subdomainID,
+      }),
       activePage: {
         get() {
           return this.$store.state.global.activePage;
@@ -51,14 +54,9 @@
         },
       },
     },
-    methods: {
-      ...mapActions([
-        'fetchMakes'
-      ]),
-    },
     created() {
-      this.$store.commit('updateVendor', this.$route.params.vendor);
-      this.$store.dispatch('fetchMakes');
+      this.$store.commit('updateSubdomain', this.$route.params.vendor);
+      this.$store.dispatch('fetchSubdomainID', this.$route.params.vendor);
     },
 
   }

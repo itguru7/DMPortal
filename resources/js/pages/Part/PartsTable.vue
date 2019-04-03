@@ -53,7 +53,9 @@
     },
     computed: {
     ...mapState({
-        visiblePartsTable:   state => state.global.visiblePartsTable,
+        subdomainID:          state => state.global.subdomainID,
+        visiblePartsTable:    state => state.global.visiblePartsTable,
+        selectedPartID:       state => state.global.selectedPartID,
       }),
       partNumber: {
         get() {
@@ -66,6 +68,7 @@
     },
     methods: {
       searchParts() {
+        this.$store.commit('updateSelectedPart', null);
         this.$store.dispatch('updatePartsTableVisibility', true);
       },
       getData(params, setRowData) {
@@ -74,6 +77,7 @@
         }
         var url = SERVER_URL + '/fetchParts';
         var formData = {
+          'Subdomain_ID': this.subdomainID,
           'partNumber': this.partNumber,
           'limit': {
             'offset': (params.page_number - 1) * params.page_length,
@@ -86,15 +90,14 @@
               res.data['data'],
               res.data['length'],
             );
-            if (res.data['length'] == '1') {
-              this.$store.dispatch('updateSelectedPartNumber', res.data['data'][0]['Part_Number']);
-            } else {
-              this.$store.dispatch('updateSelectedPartNumber', null);
+            if (this.selectedPartID == null && res.data['length'] == '1' ) {
+              var selectedPart = res.data['data'][0];
+              this.$store.dispatch('updateSelectedPart', {partID: selectedPart['Part_ID'], partNumber: selectedPart['Part_Number']});
             }
           })
       },
       selectRow(row) {
-        this.$store.dispatch('updateSelectedPartNumber', row.Part_Number);
+        this.$store.dispatch('updateSelectedPart', {partID: row.Part_ID, partNumber: row.Part_Number});
       },
     }
   }

@@ -1,7 +1,7 @@
 <template>
-  <v-container v-if="assets && assets.length">
+  <v-container>
     <h2>{{selectedPartNumber}}</h2>
-    <div class="row">
+    <div class="row" v-if="assets && assets.length">
       <div class="col-xs-8">
         <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
       </div>
@@ -30,8 +30,9 @@
     },
     computed: {
       ...mapState({
-        vendor:               state => state.filters.vendor,
-        selectedPartNumber:   state => state.global.selectedPartNumber,
+        subdomain:          state => state.global.subdomain,
+        selectedPartID:     state => state.global.selectedPartID,
+        selectedPartNumber: state => state.global.selectedPartNumber,
       }),
     },
     mounted() {
@@ -41,7 +42,7 @@
       fetchAssets() {
         var url = SERVER_URL + '/fetchAssets';
         var formData = {
-          'partNumber': this.selectedPartNumber,
+          'Part_ID': this.selectedPartID,
         }
         axios.post(url, formData)
           .then(res  => {
@@ -50,10 +51,10 @@
           })
       },
       getAssetThumbnail(index) {
-        return 'http://'+this.vendor+'.aftermarketdata.com/wp-content/thumbnails/'+this.assets[index]['File_Name'];
+        return 'http://'+this.subdomain+'.aftermarketdata.com/wp-content/thumbnails/'+this.assets[index]['File_Name'];
       },
       getAssetImage(index) {
-        return 'http://'+this.vendor+'.aftermarketdata.com/wp-content/assets/'+this.assets[index]['File_Name'];
+        return 'http://'+this.subdomain+'.aftermarketdata.com/wp-content/assets/'+this.assets[index]['File_Name'];
       },
       selectAsset(index) {
         this.selectedAssetIndex = index;

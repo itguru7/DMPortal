@@ -69,10 +69,11 @@
   export default {
     computed: {
       ...mapState({
-        makes:    state => state.filters.makes,
-        models:   state => state.filters.models,
-        years:    state => state.filters.years,
-        engines:  state => state.filters.engines,
+        subdomainID:  state => state.global.subdomainID,
+        makes:        state => state.filters.makes,
+        models:       state => state.filters.models,
+        years:        state => state.filters.years,
+        engines:      state => state.filters.engines,
       }),
       selectedMake: {
         get() {
@@ -108,6 +109,14 @@
       },
     },
     watch: {
+      subdomainID(newValue, oldValue) {
+        if (newValue > 0) {
+          this.$store.dispatch('fetchMakes');
+        } else {
+          this.$store.commit('updateMakes', []);
+        }
+      },
+
       makes(newValue, oldValue) {
         this.$store.commit('selectMake', null);
       },

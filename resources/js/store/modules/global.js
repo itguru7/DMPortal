@@ -1,4 +1,7 @@
 const state = {
+  subdomainID: 0,
+  subdomain: '',
+
   activePage: null,
   activePartPage: null,
 
@@ -7,7 +10,10 @@ const state = {
   visibleInterchangesTable: false,
 
   partNumber: '',
-  selectedPartNumber: null,
+
+  selectedPartID: null,
+  selectedPartNumber: '',
+
   xRef: '',
 }
 
@@ -15,6 +21,13 @@ const getters = {
 }
 
 const mutations = {
+  updateSubdomain: (state, payload) => {
+    state.subdomain = payload;
+  },
+  updateSubdomainID: (state, payload) => {
+    state.subdomainID = payload;
+  },
+
   updateActivePage: (state, payload) => {
     state.activePage = payload;
   },
@@ -39,12 +52,29 @@ const mutations = {
     state.visibleInterchangesTable = payload;
   },
 
-  updateSelectedPartNumber: (state, payload) => {
-    state.selectedPartNumber = payload;
+  updateSelectedPart: (state, payload) => {
+    if (payload) {
+      state.selectedPartNumber = payload.partNumber;
+      state.selectedPartID = payload.partID;
+    } else {
+      state.selectedPartID = null;
+      state.selectedPartNumber = '';
+    }
   },
 }
 
 const actions = {
+  fetchSubdomainID: (context) => {
+    var url = SERVER_URL + '/fetchSubdomainID';
+    var formData = {
+      'Vendor': context.state.subdomain,
+    }
+    axios.post(url, formData)
+      .then(res  => {
+        context.commit('updateSubdomainID', res.data['data']);
+      })
+  },
+
   updateApplicationsTableVisibility: (context, payload) => {
     if (!payload) {
       context.commit('updateApplicationsTableVisibility', payload);
@@ -81,10 +111,10 @@ const actions = {
       }, 100);
     }
   },
-  updateSelectedPartNumber: (context, payload) => {
-    context.commit('updateSelectedPartNumber', null);
+  updateSelectedPart: (context, payload) => {
+    context.commit('updateSelectedPart', null);
     setTimeout(function() {
-      context.commit('updateSelectedPartNumber', payload);
+      context.commit('updateSelectedPart', payload);
     }, 100);
     context.commit('updateActivePartPage', 0);
   },
