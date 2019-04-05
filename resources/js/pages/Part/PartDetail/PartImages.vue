@@ -51,10 +51,10 @@
           })
       },
       getAssetThumbnail(index) {
-        return 'http://'+this.subdomain+'.aftermarketdata.com/wp-content/thumbnails/'+this.assets[index]['File_Name'];
+        return 'assets/' + subdomain + '/small/' + this.assets[index]['File_Name'];
       },
       getAssetImage(index) {
-        return 'http://'+this.subdomain+'.aftermarketdata.com/wp-content/assets/'+this.assets[index]['File_Name'];
+        return 'assets/' + subdomain + '/large/' + this.assets[index]['File_Name'];
       },
       selectAsset(index) {
         this.selectedAssetIndex = index;

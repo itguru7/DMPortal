@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-2">
         <v-text-field
-          placeholder="Xref"
+          placeholder="CROSS REF"
           solo
           v-model="xRef"
           @keyup.enter="searchInterchanges"

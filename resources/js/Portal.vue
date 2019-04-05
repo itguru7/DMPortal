@@ -13,7 +13,7 @@
         Part Number
       </v-tab>
       <v-tab>
-        Xref
+        CROSS REF
       </v-tab>
       <v-tab-item>
         <app-application></app-application>
@@ -52,16 +52,7 @@
       },
     },
     created() {
-      // var vendor = this.$route.params.vendor;
-
-      const parts = window.location.host.split('.');
-      if (parts.length != 3) {
-        return;
-      }
-      var vendor = parts[0];
-
-      this.$store.commit('updateSubdomain', vendor);
-      this.$store.dispatch('fetchSubdomainID', vendor);
+      this.$store.dispatch('fetchSubdomain');
     },
 
   }

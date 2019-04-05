@@ -21,9 +21,9 @@
     data() {
       return {
         columns: [
+          { label: 'Years', field: 'Year_Range', sortable: false},
           { label: 'Make', field: 'Make', sortable: false},
           { label: 'Model', field: 'Model', sortable: false},
-          { label: 'Year_Range', field: 'Year_Range', sortable: false},
         ],
         page: 1,
         per_page: 10,

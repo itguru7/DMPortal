@@ -24,10 +24,10 @@
     data() {
       return {
         columns: [
-          { label: 'Product', field: 'Part_Terminology', filterable: false, sortable: false},
-          { label: 'Notes', field: 'Notes', sortable: true},
-          { label: 'Quantity', field: 'Quantity', sortable: false},
           { label: 'Part Number', field: 'Part_Number', sortable: false},
+          { label: 'Notes', field: 'Notes', sortable: true},
+          { label: 'Qty', field: 'Quantity', sortable: false},
+          { label: 'Product', field: 'Part_Terminology', filterable: false, sortable: false},
         ],
         page: 1,
         per_page: 10,

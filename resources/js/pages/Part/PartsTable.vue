@@ -44,8 +44,8 @@
     data() {
       return {
         columns: [
-          { label: 'Part_Number', field: 'Part_Number', sortable: false},
-          { label: 'Part_Terminology', field: 'Part_Terminology', sortable: false},
+          { label: 'Part Number', field: 'Part_Number', sortable: false},
+          { label: 'Product', field: 'Part_Terminology', sortable: false},
         ],
         page: 1,
         per_page: 10,
