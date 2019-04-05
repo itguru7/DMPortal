@@ -51,10 +51,10 @@
           })
       },
       getAssetThumbnail(index) {
-        return 'assets/' + subdomain + '/small/' + this.assets[index]['File_Name'];
+        return 'assets/' + this.subdomain + '/small/' + this.assets[index]['File_Name'];
       },
       getAssetImage(index) {
-        return 'assets/' + subdomain + '/large/' + this.assets[index]['File_Name'];
+        return 'assets/' + this.subdomain + '/large/' + this.assets[index]['File_Name'];
       },
       selectAsset(index) {
         this.selectedAssetIndex = index;
