@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="selectedPartID">
+  <div v-if="selectedPartID">
     <v-tabs
       v-model="activePartPage"
       color="cyan"
@@ -25,7 +25,7 @@
         <app-part-buyerguide></app-part-buyerguide>
       </v-tab-item>
     </v-tabs>
-  </v-container>
+  </div>
 </template>
 
 <script>

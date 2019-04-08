@@ -1,14 +1,14 @@
 <template>
-  <v-container>
+  <div class="container">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-md-6">
         <app-parts-table></app-parts-table>
       </div>
-      <div class="col-sm-6">
+      <div class="col-md-6">
         <app-part-detail></app-part-detail>
       </div>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>

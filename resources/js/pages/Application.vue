@@ -1,8 +1,8 @@
 <template>
-  <v-container>
+  <div class="container">
     <app-filters></app-filters>
     <app-applications-table></app-applications-table>
-  </v-container>
+  </div>
 </template>
 
 <script>

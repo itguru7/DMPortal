@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-4">
+      <div class="col-lg-4 col-8">
         <v-text-field
           placeholder="Part Number"
           solo
@@ -9,7 +9,7 @@
           @keyup.enter="searchParts"
         ></v-text-field>
       </div>
-      <div class="col-2">
+      <div class="col-lg-2 col-4">
         <v-btn
           color="error"
           @click="searchParts"
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="row" v-if="visiblePartsTable">
-      <div class="col-xs-12 table-responsive">
+      <div class="col-xs-12">
         <datatable :columns="columns" :data="getData">
           <template slot-scope="{ row, columns }">
             <tr @click="selectRow(row)">

@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-3 col-sm-6">
+    <div class="col-lg-3 col-md-6">
       <div class="form-group">
         <h3 class="text-center">Make</h3>
         <select
@@ -15,7 +15,7 @@
         </select>
       </div>
     </div>
-    <div class="col-md-3 col-sm-6">
+    <div class="col-lg-3 col-md-6">
       <div class="form-group">
         <h3 class="text-center">Model</h3>
         <select
@@ -30,7 +30,7 @@
         </select>
       </div>
     </div>
-    <div class="col-md-3 col-sm-6">
+    <div class="col-lg-3 col-md-6">
       <div class="form-group">
         <h3 class="text-center">Year</h3>
         <select
@@ -45,7 +45,7 @@
         </select>
       </div>
     </div>
-    <div class="col-md-3 col-sm-6">
+    <div class="col-lg-3 col-md-6">
       <div class="form-group">
         <h3 class="text-center">Engine</h3>
         <select

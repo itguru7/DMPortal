@@ -1,5 +1,5 @@
 <template>
-  <v-container class="part-info-container">
+  <div class="p-3 part-info-container">
     <h2>{{selectedPartNumber}}</h2>
     <br>
 
@@ -16,7 +16,7 @@
     <div v-for="(attribute, index) in attributes" :key="'attribute-'+index">
       {{attribute['Attribute']}}
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>

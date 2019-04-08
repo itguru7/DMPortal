@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="row" v-if="visibleInterchangesTable">
-      <div class="col-xs-12 table-responsive">
+      <div class="col-xs-12">
         <datatable :columns="columns" :data="getData">
           <template slot-scope="{ row, columns }">
             <tr @click="selectRow(row)">

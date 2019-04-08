@@ -1,17 +1,17 @@
 <template>
-  <v-container>
+  <div class="p-3">
     <div>
       <h2>{{selectedPartNumber}}</h2>
     </div>
     <div class="row">
-      <div class="col-xs-12 table-responsive">
+      <div class="col-xs-12">
         <datatable :columns="columns" :data="getData"></datatable>
       </div>
       <div class="col-xs-12 form-inline">
         <datatable-pager v-model="page" type="abbreviated" :per-page="per_page"></datatable-pager>
       </div>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>
