@@ -52,13 +52,13 @@
       },
     },
     created() {
-      var vendor = this.$route.params.vendor;
+      // var vendor = this.$route.params.vendor;
 
-      // const parts = window.location.host.split('.');
-      // if (parts.length != 3) {
-      //   return;
-      // }
-      // var vendor = parts[0];
+      const parts = window.location.host.split('.');
+      if (parts.length != 3) {
+        return;
+      }
+      var vendor = parts[0];
 
       this.$store.dispatch('fetchSubdomain', vendor);
     },
