@@ -1,22 +1,37 @@
 <template>
   <div class="p-3">
     <h2>{{selectedPartNumber}}</h2>
-    <div class="row" v-if="assets && assets.length">
-      <div class="col-sm-8 col-12">
-        <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
+    <template v-if="!isMobile()">
+      <div class="row" v-if="assets && assets.length">
+        <div class="col-xl-10 col-sm-8">
+          <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
+        </div>
+        <div class="col-xl-2 col-sm-4 image-scrollview-desktop">
+          <v-card class="col-sm-12 mb-2" v-for="(asset, index) in assets" :key="'image-'+index">
+            <v-img @click="selectAsset(index)" :src="getAssetThumbnail(index)"></v-img>
+          </v-card>
+        </div>
       </div>
-      <div class="col-sm-offset-2 col-sm-2 col-12 image-scrollview">
-        <v-card class="col-sm-12 col-xs-3 mb-2" v-for="(asset, index) in assets" :key="'image-'+index">
-          <v-img @click="selectAsset(index)" :src="getAssetThumbnail(index)"></v-img>
-        </v-card>
+    </template>
+    <template v-else>
+      <div class="row" v-if="assets && assets.length">
+        <div class="col-12">
+          <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
+        </div>
+        <div class="col-12">
+          <v-card class="col-3 mb-2" v-for="(asset, index) in assets" :key="'image-'+index">
+            <v-img @click="selectAsset(index)" :src="getAssetThumbnail(index)"></v-img>
+          </v-card>
+        </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
   import { mapState, mapActions } from 'vuex';
   import vueMagnifier from "../../../components/vue-magnifier";
+  import { isMobile } from 'mobile-device-detect';
 
   export default {
     components: {
@@ -72,7 +87,7 @@
 </style>
 
 <style scoped>
-  .image-scrollview {
+  .image-scrollview-desktop {
     height: 300px;
     overflow-y: scroll;
   }
