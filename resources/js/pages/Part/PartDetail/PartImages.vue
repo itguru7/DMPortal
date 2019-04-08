@@ -1,20 +1,8 @@
 <template>
   <div class="p-3">
     <h2>{{selectedPartNumber}}</h2>
-    <template v-if="!isMobile()">
-      <div class="row" v-if="assets && assets.length">
-        <div class="col-xl-10 col-sm-8">
-          <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
-        </div>
-        <div class="col-xl-2 col-sm-4 image-scrollview-desktop">
-          <v-card class="col-sm-12 mb-2" v-for="(asset, index) in assets" :key="'image-'+index">
-            <v-img @click="selectAsset(index)" :src="getAssetThumbnail(index)"></v-img>
-          </v-card>
-        </div>
-      </div>
-    </template>
-    <template v-else>
-      <div class="row" v-if="assets && assets.length">
+    <div class="row" v-if="assets && assets.length">
+      <template v-if="isMobile">
         <div class="col-12">
           <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
         </div>
@@ -23,8 +11,18 @@
             <v-img @click="selectAsset(index)" :src="getAssetThumbnail(index)"></v-img>
           </v-card>
         </div>
-      </div>
-    </template>
+      </template>
+      <template v-else>
+        <div class="col-xl-10 col-sm-8">
+          <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
+        </div>
+        <div class="col-xl-2 col-sm-4 image-scrollview-desktop">
+          <v-card class="col-sm-12 mb-2" v-for="(asset, index) in assets" :key="'image-'+index">
+            <v-img @click="selectAsset(index)" :src="getAssetThumbnail(index)"></v-img>
+          </v-card>
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 
