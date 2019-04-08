@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="py-3">
     <app-filters></app-filters>
     <app-applications-table></app-applications-table>
   </div>

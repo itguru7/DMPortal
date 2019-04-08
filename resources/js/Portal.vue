@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div :class="{'container': !isMobile}">
     <v-tabs
       v-model="activePage"
       color="purple"
@@ -25,7 +25,7 @@
         <app-xref></app-xref>
       </v-tab-item>
     </v-tabs>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -52,7 +52,15 @@
       },
     },
     created() {
-      this.$store.dispatch('fetchSubdomain');
+      var vendor = this.$route.params.vendor;
+
+      // const parts = window.location.host.split('.');
+      // if (parts.length != 3) {
+      //   return;
+      // }
+      // var vendor = parts[0];
+
+      this.$store.dispatch('fetchSubdomain', vendor);
     },
 
   }

@@ -65,20 +65,12 @@ const mutations = {
 }
 
 const actions = {
-  fetchSubdomain: (context) => {
-    // var vendor = context.rootState.route.params.vendor;
-
-    const parts = window.location.host.split('.');
-    if (parts.length != 3) {
-      return;
-    }
-    var vendor = parts[0];
-
-    context.commit('updateSubdomain', vendor);
+  fetchSubdomain: (context, payload) => {
+    context.commit('updateSubdomain', payload);
 
     var url = SERVER_URL + '/fetchSubdomainID';
     var formData = {
-      'Vendor': vendor,
+      'Vendor': payload,
     }
     axios.post(url, formData)
       .then(res  => {

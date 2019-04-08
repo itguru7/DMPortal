@@ -3,6 +3,7 @@
     <h2>{{selectedPartNumber}}</h2>
     <div class="row" v-if="assets && assets.length">
       <template v-if="isMobile">
+        hello mobile
         <div class="col-12">
           <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
         </div>
@@ -13,6 +14,7 @@
         </div>
       </template>
       <template v-else>
+        hello desktop
         <div class="col-xl-10 col-sm-8">
           <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
         </div>
@@ -29,7 +31,6 @@
 <script>
   import { mapState, mapActions } from 'vuex';
   import vueMagnifier from "../../../components/vue-magnifier";
-  import { isMobile } from 'mobile-device-detect';
 
   export default {
     components: {

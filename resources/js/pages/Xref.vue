@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="py-3">
     <div class="row">
-      <div class="col-2">
+      <div class="col-md-2 col-6">
         <v-text-field
           placeholder="CROSS REF"
           solo
@@ -9,7 +9,7 @@
           @keyup.enter="searchInterchanges"
         ></v-text-field>
       </div>
-      <div class="col-1">
+      <div class="col-md-1 col-6">
         <v-btn
           color="error"
           @click="searchInterchanges"
@@ -46,7 +46,7 @@
         columns: [
           { label: 'Part_Number', field: 'Part_Number', sortable: false},
           { label: 'Brand', field: 'Brand', sortable: false},
-          { label: 'Interchange_Part_Number', field: 'Interchange_Part_Number', sortable: false},
+          { label: 'Interchange', field: 'Interchange_Part_Number', sortable: false},
         ],
         page: 1,
         per_page: 10,

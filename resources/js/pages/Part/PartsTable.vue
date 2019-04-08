@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-lg-4 col-8">
+      <div class="col-md-4 col-6">
         <v-text-field
           placeholder="Part Number"
           solo
@@ -9,7 +9,7 @@
           @keyup.enter="searchParts"
         ></v-text-field>
       </div>
-      <div class="col-lg-2 col-4">
+      <div class="col-md-2 col-6">
         <v-btn
           color="error"
           @click="searchParts"
