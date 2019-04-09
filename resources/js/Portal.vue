@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'container': !isMobile}">
+  <div class="container">
     <v-tabs
       v-model="activePage"
       color="purple"
@@ -29,8 +29,6 @@
 </template>
 
 <script>
-  import { isMobile } from 'mobile-device-detect';
-
   import { mapState } from 'vuex';
 
   import Application  from './pages/Application.vue';

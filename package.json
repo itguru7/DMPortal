@@ -24,7 +24,6 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "mobile-device-detect": "^0.2.3",
         "vue-router": "^3.0.2",
         "vuejs-datatable": "^1.7.0",
         "vuetify": "^1.5.8",
