@@ -1,34 +1,37 @@
 <template>
   <div class="p-3">
-    <h2>{{selectedPartNumber}} {{isMobile()?'mobile':'desktop'}}</h2>
-    <div class="row" v-if="assets && assets.length">
+    <h2>{{selectedPartNumber}}</h2>
+    <template v-if="assets && assets.length">
       <template v-if="!isMobile()">
-        <div class="col-12">
-          <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
-        </div>
-        <div class="col-12">
-          <v-card class="col-3 mb-2" v-for="(asset, index) in assets" :key="'image-'+index">
-            <v-img @click="selectAsset(index)" :src="getAssetThumbnail(index)"></v-img>
-          </v-card>
+        <div class="row">
+          <div class="col-xl-10 col-sm-8">
+            <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
+          </div>
+          <div class="col-xl-2 col-sm-4 image-scrollview-desktop">
+            <v-card class="col-sm-12 mb-2" v-for="(asset, index) in assets" :key="'image-'+index">
+              <v-img @click="selectAsset(index)" :src="getAssetThumbnail(index)"></v-img>
+            </v-card>
+          </div>
         </div>
       </template>
       <template v-else>
-        <div class="col-xl-10 col-sm-8">
+        <div>
           <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
         </div>
-        <div class="col-xl-2 col-sm-4 image-scrollview-desktop">
-          <v-card class="col-sm-12 mb-2" v-for="(asset, index) in assets" :key="'image-'+index">
+        <div class="row">
+          <v-card class="col-4 mb-2" v-for="(asset, index) in assets" :key="'image-'+index">
             <v-img @click="selectAsset(index)" :src="getAssetThumbnail(index)"></v-img>
           </v-card>
         </div>
       </template>
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
   import { mapState, mapActions } from 'vuex';
   import vueMagnifier from "../../../components/vue-magnifier";
+  import { isMobile } from "../../../functions";
 
   export default {
     components: {
@@ -51,6 +54,7 @@
       this.fetchAssets();
     },
     methods: {
+      isMobile,
       fetchAssets() {
         var url = SERVER_URL + '/fetchAssets';
         var formData = {
@@ -71,13 +75,6 @@
       selectAsset(index) {
         this.selectedAssetIndex = index;
       },
-      isMobile() {
-        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-          return true
-        } else {
-          return false
-        }
-      }
     },
   }
 
