@@ -29,6 +29,8 @@
 </template>
 
 <script>
+  import { isMobile } from 'mobile-device-detect';
+
   import { mapState } from 'vuex';
 
   import Application  from './pages/Application.vue';

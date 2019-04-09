@@ -3,9 +3,6 @@ require('./bootstrap');
 
 window.SERVER_URL = window.location.origin + '/api';
 
-import { isMobile } from 'mobile-device-detect';
-window.isMobile = isMobile;
-
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vuetify from 'vuetify'

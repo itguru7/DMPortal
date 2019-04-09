@@ -29,6 +29,8 @@
 </template>
 
 <script>
+  import { isMobile } from 'mobile-device-detect';
+
   import { mapState, mapActions } from 'vuex';
   import vueMagnifier from "../../../components/vue-magnifier";
 
