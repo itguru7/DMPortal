@@ -93,8 +93,7 @@
       },
       selectRow(row) {
         this.$store.commit('updateActivePage', 1);
-        this.$store.commit('updatePartNumber', row.Part_Number);
-        this.$store.commit('updateSelectedPart', {partID: row.Part_Target_ID, partNumber: row.Part_Number});
+        this.$store.dispatch('updateSelectedPart', {partID: row.Part_Target_ID, partNumber: row.Part_Number});
         this.$store.dispatch('updatePartsTableVisibility', true);
       },
     }
