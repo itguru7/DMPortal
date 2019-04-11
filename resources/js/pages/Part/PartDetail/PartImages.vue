@@ -5,22 +5,22 @@
       <template v-if="!isMobile()">
         <div class="row">
           <div class="col-xl-10 col-sm-8">
-            <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
+            <vue-magnifier :src="getAssetImageLarge(selectedAssetIndex)" :src-large="getAssetImageLarge(selectedAssetIndex)" />
           </div>
           <div class="col-xl-2 col-sm-4 image-scrollview-desktop">
             <v-card class="col-sm-12 mb-2" v-for="(asset, index) in assets" :key="'image-'+index">
-              <v-img @click="selectAsset(index)" :src="getAssetThumbnail(index)"></v-img>
+              <v-img @click="selectAsset(index)" :src="getAssetImageSmall(index)"></v-img>
             </v-card>
           </div>
         </div>
       </template>
       <template v-else>
         <div>
-          <vue-magnifier :src="getAssetThumbnail(selectedAssetIndex)" :src-large="getAssetImage(selectedAssetIndex)" />
+          <vue-magnifier :src="getAssetImageLarge(selectedAssetIndex)" :src-large="getAssetImageLarge(selectedAssetIndex)" />
         </div>
         <div class="row">
           <v-card class="col-4 mb-2" v-for="(asset, index) in assets" :key="'image-'+index">
-            <v-img @click="selectAsset(index)" :src="getAssetThumbnail(index)"></v-img>
+            <v-img @click="selectAsset(index)" :src="getAssetImageSmall(index)"></v-img>
           </v-card>
         </div>
       </template>
@@ -66,10 +66,10 @@
             this.selectedAssetIndex = 0;
           })
       },
-      getAssetThumbnail(index) {
+      getAssetImageSmall(index) {
         return 'assets/' + this.subdomain + '/small/' + this.assets[index]['File_Name'];
       },
-      getAssetImage(index) {
+      getAssetImageLarge(index) {
         return 'assets/' + this.subdomain + '/large/' + this.assets[index]['File_Name'];
       },
       selectAsset(index) {
