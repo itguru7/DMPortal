@@ -52,6 +52,7 @@
     },
     watch: {
       selectedPartID(newValue, oldValue) {
+        console.log(newValue);
         if (newValue) {
           this.fetchAssets();
         } else {
