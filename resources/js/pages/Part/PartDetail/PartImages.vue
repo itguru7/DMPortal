@@ -2,40 +2,32 @@
   <div class="p-3">
     <h2>{{selectedPartNumber}}</h2>
     <template v-if="assets && assets.length">
-      <template v-if="!isMobile()">
-        <div class="row">
-          <div class="col-xl-10 col-sm-8">
-            <vue-magnifier :src="getAssetImageLarge(selectedAssetIndex)" :src-large="getAssetImageLarge(selectedAssetIndex)" />
-          </div>
-          <div class="col-xl-2 col-sm-4 image-scrollview-desktop">
-            <v-card class="col-sm-12 mb-2" v-for="(asset, index) in assets" :key="'image-'+index">
-              <v-img @click="selectAsset(index)" :src="getAssetImageSmall(index)"></v-img>
-            </v-card>
-          </div>
-        </div>
-      </template>
-      <template v-else>
-        <div>
-          <vue-magnifier :src="getAssetImageLarge(selectedAssetIndex)" :src-large="getAssetImageLarge(selectedAssetIndex)" />
-        </div>
-        <div class="row">
-          <v-card class="col-4 mb-2" v-for="(asset, index) in assets" :key="'image-'+index">
-            <v-img @click="selectAsset(index)" :src="getAssetImageSmall(index)"></v-img>
+      <div class="mb-3">
+        <vue-magnifier :src="getAssetImageLarge(selectedAssetIndex)" :src-large="getAssetImageLarge(selectedAssetIndex)" />
+      </div>
+      <carousel :per-page="4" :navigation-enabled="true" :autoplay="true">
+        <slide v-for="(asset, index) in assets" :key="'image-'+index">
+          <v-card>
+            <v-container>
+              <v-img @click="selectAsset(index)" :src="getAssetImageSmall(index)" height="100"></v-img>
+            </v-container>
           </v-card>
-        </div>
-      </template>
+        </slide>
+      </carousel>
     </template>
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex';
+  import { Carousel, Slide } from 'vue-carousel';
   import vueMagnifier from "../../../components/vue-magnifier";
-  import { isMobile } from "../../../functions";
+  import { mapState, mapActions } from 'vuex';
 
   export default {
     components: {
-      vueMagnifier
+      vueMagnifier,
+      Carousel,
+      Slide,
     },
     data() {
       return {
@@ -54,7 +46,6 @@
       this.fetchAssets();
     },
     methods: {
-      isMobile,
       fetchAssets() {
         var url = SERVER_URL + '/fetchAssets';
         var formData = {
@@ -67,10 +58,10 @@
           })
       },
       getAssetImageSmall(index) {
-        return 'assets/' + this.subdomain + '/small/' + this.assets[index]['File_Name'];
+        return 'http://osc.aftermarketdata.com/assets/' + this.subdomain + '/small/' + this.assets[index]['File_Name'];
       },
       getAssetImageLarge(index) {
-        return 'assets/' + this.subdomain + '/large/' + this.assets[index]['File_Name'];
+        return 'http://osc.aftermarketdata.com/assets/' + this.subdomain + '/large/' + this.assets[index]['File_Name'];
       },
       selectAsset(index) {
         this.selectedAssetIndex = index;
