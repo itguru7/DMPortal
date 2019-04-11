@@ -50,8 +50,15 @@
         selectedPartNumber: state => state.global.selectedPartNumber,
       }),
     },
-    mounted() {
-      this.fetchAssets();
+    watch: {
+      selectedPartID(newValue, oldValue) {
+        if (newValue) {
+          this.fetchAssets();
+        } else {
+          this.assets = [];
+          this.selectedAssetIndex = 0;
+        }
+      },
     },
     methods: {
       isMobile,
