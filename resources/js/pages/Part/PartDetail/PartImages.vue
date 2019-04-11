@@ -77,10 +77,3 @@
     height: 300px !important;
   }
 </style>
-
-<style scoped>
-  .image-scrollview-desktop {
-    height: 300px;
-    overflow-y: scroll;
-  }
-</style>
