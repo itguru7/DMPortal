@@ -9,7 +9,7 @@
 
                 @include('shared.error')
 
-                {!! Form::model($portal, ['route' => ['portals.update', $portal->id], 'method' => 'patch', 'class'=>'container-fluid']) !!}
+                {!! Form::model($portal, ['route' => ['portals.update', $portal->id], 'method' => 'patch', 'class'=>'container-fluid', 'files' => true]) !!}
                     @include('portals.fields')
                 {!! Form::close() !!}
 

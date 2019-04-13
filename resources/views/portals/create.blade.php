@@ -9,7 +9,7 @@
 
                 @include('shared.error')
 
-                {!! Form::open(['route' => 'portals.store', 'class'=>'container-fluid']) !!}
+                {!! Form::open(['route' => 'portals.store', 'class'=>'container-fluid', 'files' => true]) !!}
                     @include('portals.fields')
                 {!! Form::close() !!}
 

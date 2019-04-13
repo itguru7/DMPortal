@@ -24,22 +24,40 @@ class Portal extends Model
     protected $appends = [
         'vendor',
         'link',
+        'asset',
+        'logo_url',
+        'background_url',
     ];
 
     protected $dates = [];
 
     protected $casts = [];
 
+    public function vendor() {
+        $subdomain = DB::table('subdomains')->select('SubdomainID', 'Vendor')->where('SubdomainID', $this->subdomain_id)->first();
+        $subdomain = json_decode(json_encode($subdomain), true);
+        return strtolower($subdomain['Vendor']);
+    }
+    public function link() {
+        return 'http://' . $this->vendor . '.aftermarketdata.com';
+    }
+    public function asset() {
+        return '/assets/' . $this->vendor . '/';
+    }
+
     public function getVendorAttribute() {
-        $subdomain = DB::table('subdomains')->select('SubdomainID', 'Vendor')->where('SubdomainID', $this->subdomain_id)->first();
-        $subdomain = json_decode(json_encode($subdomain), true);
-        return $subdomain['Vendor'];
+        return $this->vendor();
     }
-
     public function getLinkAttribute() {
-        $subdomain = DB::table('subdomains')->select('SubdomainID', 'Vendor')->where('SubdomainID', $this->subdomain_id)->first();
-        $subdomain = json_decode(json_encode($subdomain), true);
-        return 'http://' . strtolower($subdomain['Vendor']) . '.aftermarketdata.com';
+        return $this->link();
     }
-
+    public function getAssetAttribute() {
+        return $this->asset();
+    }
+    public function getLogoUrlAttribute() {
+        return $this->asset() . $this->logo;
+    }
+    public function getBackgroundUrlAttribute() {
+        return $this->asset() . $this->background;
+    }
 }

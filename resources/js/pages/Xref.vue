@@ -10,12 +10,7 @@
         ></v-text-field>
       </div>
       <div class="col-md-1 col-6">
-        <v-btn
-          color="error"
-          @click="searchInterchanges"
-          >
-          Go
-        </v-btn>
+        <v-btn color="error" @click="searchInterchanges">Go</v-btn>
       </div>
     </div>
     <div class="row" v-if="visibleInterchangesTable">

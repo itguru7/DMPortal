@@ -2,9 +2,9 @@
   <div v-if="selectedPartID">
     <v-tabs
       v-model="activePartPage"
-      color="cyan"
+      :color="color"
       dark
-      slider-color="yellow"
+      slider-color="white"
     >
       <v-tab>
         Images
@@ -44,6 +44,7 @@
     computed: {
       ...mapState({
         selectedPartID:   state => state.global.selectedPartID,
+        color:            state => state.global.color,
       }),
       activePartPage: {
         get() {

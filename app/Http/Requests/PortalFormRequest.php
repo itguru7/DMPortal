@@ -11,10 +11,10 @@ class PortalFormRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
-    {
-        return false;
-    }
+    // public function authorize()
+    // {
+    //     return false;
+    // }
 
     /**
      * Get the validation rules that apply to the request.
@@ -26,8 +26,6 @@ class PortalFormRequest extends FormRequest
         return [
             'name' => 'required|string|min:1|max:40',
             'color' => 'required|string',
-            'logo' => 'required',
-            'background' => 'required',
         ];
     }
 

@@ -40,7 +40,17 @@ class PortalController extends Controller
         try {
             $data = $request->getData();
 
-            Portal::create($data);
+            $portal = Portal::create($data);
+
+            $logoName = 'logo.' . $request->file('logo_file')->getClientOriginalExtension();
+            $portal->logo = base_path() . '/public/assets/' . $portal->vendor . '/' . $logoName;
+            $request->file('logo_file')->move($portal->logo);
+
+            $backgroundName = 'background.' . $request->file('background_file')->getClientOriginalExtension();
+            $portal->background = base_path() . '/public/assets/' . $portal->vendor . '/' . $backgroundName;
+            $request->file('background_file')->move($portal->background);
+
+            $portal->save();
 
             return redirect()->route('portals.index')
                 ->with('success_message', 'Portal was successfully added.');
@@ -85,6 +95,18 @@ class PortalController extends Controller
             $data = $request->getData();
 
             $portal->update($data);
+
+            if ($request->hasFile('logo_file')) {
+                $portal->logo = 'logo.' . $request->file('logo_file')->getClientOriginalExtension();
+                $request->file('logo_file')->move(base_path() . '/public' . $portal->asset, $portal->logo);
+            }
+
+            if ($request->hasFile('background_file')) {
+                $portal->background = 'background.' . $request->file('background_file')->getClientOriginalExtension();
+                $request->file('background_file')->move(base_path() . '/public' . $portal->asset, $portal->background);
+            }
+
+            $portal->save();
 
             return redirect()->route('portals.index')
                 ->with('success_message', 'Portal was successfully updated.');

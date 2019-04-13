@@ -32,8 +32,8 @@
                             <td>{{ $portal->name }}</td>
                             <td>{{ $portal->color }}</td>
                             <td style="background-color:{{ $portal->color }}"> </td>
-                            <td>{{ $portal->logo }}</td>
-                            <td>{{ $portal->background }}</td>
+                            <td><img width="100" src="{{ $portal->logo_url }}"/></td>
+                            <td><img width="100" src="{{ $portal->background_url }}"/></td>
                             <td>{{ $portal->access ? 'Public' : 'Private' }}</td>
                             <td>{{ $portal->password }}</td>
                             <td>
