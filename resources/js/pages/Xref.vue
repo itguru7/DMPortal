@@ -44,7 +44,7 @@
     data() {
       return {
         columns: [
-          { label: 'Part_Number', field: 'Part_Number', sortable: false},
+          { label: 'Part Number', field: 'Part_Number', sortable: false},
           { label: 'Brand', field: 'Brand', sortable: false},
           { label: 'Interchange', field: 'Interchange_Part_Number', sortable: false},
         ],
