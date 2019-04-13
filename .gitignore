@@ -2,7 +2,6 @@
 .gitattributes
 /node_modules
 /public/hot
-/public/assets
 /public/storage
 /public/*.json
 /storage/*.key
