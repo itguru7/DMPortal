@@ -108,15 +108,14 @@
         },
       },
     },
+    created() {
+      if (this.subdomainID > 0) {
+        this.$store.dispatch('fetchMakes');
+      } else {
+        this.$store.commit('updateMakes', []);
+      }
+    },
     watch: {
-      subdomainID(newValue, oldValue) {
-        if (newValue > 0) {
-          this.$store.dispatch('fetchMakes');
-        } else {
-          this.$store.commit('updateMakes', []);
-        }
-      },
-
       makes(newValue, oldValue) {
         this.$store.commit('selectMake', null);
       },
