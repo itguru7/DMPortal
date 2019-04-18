@@ -65,4 +65,8 @@
 </script>
 
 <style scoped>
+  .part-info-container {
+    overflow-y: scroll;
+    max-height: calc(100vh - 250px);
+  }
 </style>
