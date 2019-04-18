@@ -162,4 +162,7 @@
 </script>
 
 <style scoped>
+  select {
+    background: transparent;
+  }
 </style>
