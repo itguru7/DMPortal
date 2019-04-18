@@ -27,7 +27,7 @@ Route::domain('admin.aftermarketdata.com')->group(function () {
     Route::resource('portals', 'PortalController');
 });
 
-Route::domain('{vendor}.aftermarketdata.com')->group(function () {
+Route::domain('{subdomain}.aftermarketdata.com')->group(function () {
     Route::get('/', function () {
         return view('portal');
     });

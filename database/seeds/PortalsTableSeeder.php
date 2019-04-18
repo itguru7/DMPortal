@@ -16,7 +16,8 @@ class PortalsTableSeeder extends Seeder
         foreach ($subdomains as $subdomain) {
             DB::table('portals')->insert([
                 'subdomain_id' => $subdomain['SubdomainID'],
-                'name' => $subdomain['Vendor'],
+                'name' => strtolower($subdomain['Vendor']),
+                'title' => ucfirst($subdomain['Vendor']),
             ]);
         }
     }

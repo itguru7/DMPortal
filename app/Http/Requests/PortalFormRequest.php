@@ -24,14 +24,16 @@ class PortalFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:1|max:40',
-            'color' => 'required|string',
+            'subdomain_id'  => 'required',
+            'name'          => 'required|string|min:1|max:40',
+            'title'         => 'required|string|min:1|max:40',
+            'color'         => 'required|string',
         ];
     }
 
     public function getData()
     {
-        $data = $this->only(['name', 'color', 'logo', 'background', 'password']);
+        $data = $this->only(['subdomain_id', 'name', 'title', 'color', 'logo', 'background', 'password']);
         $data['access'] = $this->has('access');
 
         return $data;

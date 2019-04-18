@@ -1,5 +1,5 @@
 <template v-if="subdomainID > 0">
-  <div v-if="access==1" class="container portal-container" :style="{backgroundImage: backgroundImage}">
+  <div v-if="access==1" class="portal-container" :style="{backgroundImage: backgroundImage}">
     <h2>{{ name }}</h2>
     <v-img :src="logoImage" class="logo"></v-img>
     <v-tabs
@@ -91,15 +91,15 @@
       },
     },
     created() {
-      // var vendor = this.$route.params.vendor;
+      // var subdomain = this.$route.params.subdomain;
 
       const parts = window.location.host.split('.');
       if (parts.length != 3) {
         return;
       }
-      var vendor = parts[0];
+      var subdomain = parts[0];
 
-      this.$store.dispatch('fetchSubdomain', vendor);
+      this.$store.dispatch('fetchSubdomain', subdomain);
     },
     methods: {
       enterPassword() {
@@ -116,11 +116,13 @@
 </script>
 
 <style scoped>
+  .portal-container{
+    background-size: cover;
+    height: 100vh;
+    padding: 3rem;
+  }
   .logo {
     width: 100px;
     height: 50px;
-  }
-  .portal-container{
-    background-size: cover;
   }
 </style>

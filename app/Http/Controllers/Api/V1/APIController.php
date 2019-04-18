@@ -9,26 +9,22 @@ use Illuminate\Support\Facades\DB;
 class APIController extends Controller
 {
     public function fetchSubdomain(Request $request) {
-        $vendor = $request->Vendor;
+        $subdomain = $request->subdomain;
 
-        $query = 'SELECT SubdomainID FROM subdomains WHERE Vendor LIKE "%'.$vendor.'%" LIMIT 1';
-
-        $result = DB::select($query);
-        $SubdomainID = json_decode(json_encode($result), true);
-
-        if (sizeof($SubdomainID) == 1) {
-            $SubdomainID = $SubdomainID[0]['SubdomainID'];
-        } else {
-            $SubdomainID = 0;
-        }
-
-        $result = DB::table('portals')->select('*')->where('subdomain_id', $SubdomainID)->get();
+        $result = DB::table('portals')->select('*')->where('name', $subdomain)->get();
         $portal = json_decode(json_encode($result), true);
 
+        if (sizeof($portal) == 1) {
+            $portal = $portal[0];
+            $result = DB::table('subdomains')->select('Vendor')->where('SubdomainID', $portal['subdomain_id'])->get();
+            $result = json_decode(json_encode($result), true);
+            $portal['vendor'] = $result[0]['Vendor'];
+        } else {
+            $portal = [];
+        }
+
         return response()->json(array(
-            'SubdomainID' => $SubdomainID,
-            'portal' => $portal[0],
-            'query' => $query,
+            'portal' => $portal,
         ));
     }
 

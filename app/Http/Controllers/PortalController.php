@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Portal;
-use Illuminate\Http\Request;
 use App\Http\Requests\PortalFormRequest;
 
 class PortalController extends Controller
@@ -26,7 +26,11 @@ class PortalController extends Controller
      */
     public function create()
     {
-        return view('portals.create');
+        $result = DB::table('portals')->select('subdomain_id')->get();
+        $subdomain_ids = json_decode(json_encode($result), true);
+        $result = DB::table('subdomains')->select('SubdomainID', 'Vendor')->whereNotIn('SubdomainID', $subdomain_ids)->get();
+        $subdomains = json_decode(json_encode($result), true);
+        return view('portals.create', compact('subdomains'));
     }
 
     /**
@@ -39,18 +43,14 @@ class PortalController extends Controller
     {
         try {
             $data = $request->getData();
-
             $portal = Portal::create($data);
 
-            $logoName = 'logo.' . $request->file('logo_file')->getClientOriginalExtension();
-            $portal->logo = base_path() . '/public/assets/' . $portal->vendor . '/' . $logoName;
-            $request->file('logo_file')->move($portal->logo);
-
-            $backgroundName = 'background.' . $request->file('background_file')->getClientOriginalExtension();
-            $portal->background = base_path() . '/public/assets/' . $portal->vendor . '/' . $backgroundName;
-            $request->file('background_file')->move($portal->background);
-
-            $portal->save();
+            if ($request->hasFile('logo_file')) {
+                $request->file('logo_file')->move(base_path() . '/public' . $portal->asset, $portal->logo);
+            }
+            if ($request->hasFile('background_file')) {
+                $request->file('background_file')->move(base_path() . '/public' . $portal->asset, $portal->background);
+            }
 
             return redirect()->route('portals.index')
                 ->with('success_message', 'Portal was successfully added.');
@@ -79,7 +79,11 @@ class PortalController extends Controller
      */
     public function edit(Portal $portal)
     {
-        return view('portals.edit', compact('portal'));
+        $result = DB::table('portals')->select('subdomain_id')->where('subdomain_id', '!=', $portal->subdomain_id)->get();
+        $subdomain_ids = json_decode(json_encode($result), true);
+        $result = DB::table('subdomains')->select('SubdomainID', 'Vendor')->whereNotIn('SubdomainID', $subdomain_ids)->get();
+        $subdomains = json_decode(json_encode($result), true);
+        return view('portals.edit', compact('portal', 'subdomains'));
     }
 
     /**
@@ -93,20 +97,14 @@ class PortalController extends Controller
     {
         try {
             $data = $request->getData();
-
             $portal->update($data);
 
             if ($request->hasFile('logo_file')) {
-                $portal->logo = 'logo.' . $request->file('logo_file')->getClientOriginalExtension();
                 $request->file('logo_file')->move(base_path() . '/public' . $portal->asset, $portal->logo);
             }
-
             if ($request->hasFile('background_file')) {
-                $portal->background = 'background.' . $request->file('background_file')->getClientOriginalExtension();
                 $request->file('background_file')->move(base_path() . '/public' . $portal->asset, $portal->background);
             }
-
-            $portal->save();
 
             return redirect()->route('portals.index')
                 ->with('success_message', 'Portal was successfully updated.');

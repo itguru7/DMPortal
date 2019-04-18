@@ -1,7 +1,7 @@
 import Portal           from './Portal.vue';
 
 // export const routes = [
-//     { path: '/:vendor', component: Portal }
+//     { path: '/:subdomain', component: Portal }
 // ];
 
 export const routes = [

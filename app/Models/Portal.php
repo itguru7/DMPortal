@@ -14,6 +14,7 @@ class Portal extends Model
     protected $fillable = [
         'subdomain_id',
         'name',
+        'title',
         'color',
         'logo',
         'background',
@@ -55,9 +56,9 @@ class Portal extends Model
         return $this->asset();
     }
     public function getLogoUrlAttribute() {
-        return $this->asset() . $this->logo;
+        return $this->logo ? $this->asset() . $this->logo : '';
     }
     public function getBackgroundUrlAttribute() {
-        return $this->asset() . $this->background;
+        return $this->background ? $this->asset() . $this->background : '';
     }
 }

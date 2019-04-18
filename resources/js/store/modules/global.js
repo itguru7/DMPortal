@@ -1,8 +1,9 @@
 const state = {
   subdomainID: 0,
   subdomain: '',
+  vendor: '',
 
-  name: '',
+  title: '',
   color: '',
   logo: '',
   background: '',
@@ -32,11 +33,10 @@ const mutations = {
   updateSubdomain: (state, payload) => {
     state.subdomain = payload;
   },
-  updateSubdomainID: (state, payload) => {
-    state.subdomainID = payload;
-  },
   updatePortal: (state, payload) => {
-    state.name = payload.name;
+    state.subdomainID = payload.subdomain_id;
+    state.vendor = payload.vendor;
+    state.title = payload.title;
     state.color = payload.color;
     state.logo = payload.logo;
     state.background = payload.background;
@@ -88,13 +88,14 @@ const actions = {
   fetchSubdomain: (context, payload) => {
     context.commit('updateSubdomain', payload);
 
+    console.log(payload);
+
     var url = SERVER_URL + '/fetchSubdomain';
     var formData = {
-      'Vendor': payload,
+      'subdomain': payload,
     }
     axios.post(url, formData)
       .then(res  => {
-        context.commit('updateSubdomainID', res.data['SubdomainID']);
         context.commit('updatePortal', res.data['portal']);
       })
   },
