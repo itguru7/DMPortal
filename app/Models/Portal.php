@@ -40,7 +40,7 @@ class Portal extends Model
         return strtolower($subdomain['Vendor']);
     }
     public function link() {
-        return 'http://' . $this->vendor . '.aftermarketdata.com';
+        return 'http://' . $this->name . '.aftermarketdata.com';
     }
     public function asset() {
         return '/assets/' . $this->vendor . '/';
