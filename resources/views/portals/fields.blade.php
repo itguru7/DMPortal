@@ -32,7 +32,7 @@
             {!! Form::label('logo', 'Logo:') !!}
             <div class="row">
                 <div class="col-12">
-                    <img id="logo_img" src="{{ isset($portal) && $portal->logo_url }}" width=100/>
+                    <img id="logo_img" src="{{ isset($portal) ? $portal->logo_url : '' }}" width=100/>
                     <button id="upload_logo" class="btn btn-primary">Upload</button>
                     <button id="remove_logo" class="btn btn-danger">Remove</button>
                 </div>
@@ -44,7 +44,7 @@
             {!! Form::label('background', 'Background:') !!}
             <div class="row">
                 <div class="col-12">
-                    <img id="background_img" src="{{ isset($portal) && $portal->background_url }}" width=100/>
+                    <img id="background_img" src="{{ isset($portal) ? $portal->background_url : '' }}" width=100/>
                     <button id="upload_background" class="btn btn-primary">Upload</button>
                     <button id="remove_background" class="btn btn-danger">Remove</button>
                 </div>
