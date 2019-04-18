@@ -1,5 +1,5 @@
 <template>
-  <div class="py-3">
+  <div class="content-wrapper">
     <div class="row">
       <div class="col-md-6">
         <app-parts-table></app-parts-table>

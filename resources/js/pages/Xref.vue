@@ -1,5 +1,5 @@
 <template>
-  <div class="py-3">
+  <div class="content-wrapper">
     <div class="row">
       <div class="col-md-2 col-6">
         <v-text-field

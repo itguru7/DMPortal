@@ -126,3 +126,10 @@
     height: 50px;
   }
 </style>
+
+<style>
+  .content-wrapper {
+    padding: 1rem;
+    background: rgba(255, 255, 255, .8);
+  }
+</style>
