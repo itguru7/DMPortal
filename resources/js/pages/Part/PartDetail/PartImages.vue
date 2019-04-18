@@ -2,32 +2,60 @@
   <div class="p-3">
     <h2>{{selectedPartNumber}}</h2>
     <template v-if="assets && assets.length">
-      <div class="mb-3">
-        <vue-magnifier :src="getAssetImageLarge(selectedAssetIndex)" :src-large="getAssetImageLarge(selectedAssetIndex)" />
-      </div>
-      <carousel :per-page="4" :navigation-enabled="true" :autoplay="true">
-        <slide v-for="(asset, index) in assets" :key="'image-'+index">
-          <v-card>
-            <v-container>
-              <v-img @click="selectAsset(index)" :src="getAssetImageSmall(index)" height="100"></v-img>
-            </v-container>
-          </v-card>
-        </slide>
-      </carousel>
+      <template v-if="!isMobile()">
+        <div class="row mb-3">
+          <div class="col-9">
+            <vue-magnifier :src="getAssetImageLarge(selectedAssetIndex)" :src-large="getAssetImageLarge(selectedAssetIndex)"/>
+          </div>
+          <div class="col-3">
+            <ZoomImage
+              imageWidth="150"
+              imageHeight="150"
+              :src="getAssetImageLarge(selectedAssetIndex)"
+            />
+          </div>
+        </div>
+        <carousel :per-page="4" :navigation-enabled="true" :autoplay="true">
+          <slide v-for="(asset, index) in assets" :key="'image-'+index">
+            <v-card>
+              <v-container>
+                <v-img @click="selectAsset(index)" :src="getAssetImageSmall(index)" height="100"></v-img>
+              </v-container>
+            </v-card>
+          </slide>
+        </carousel>
+      </template>
+      <template v-else>
+        <div class="mb-3">
+          <v-img :src="getAssetImageSmall(selectedAssetIndex)" width="100%"></v-img>
+        </div>
+        <carousel :per-page="2" :navigation-enabled="true" :autoplay="true">
+          <slide v-for="(asset, index) in assets" :key="'image-'+index">
+            <v-card>
+              <v-container>
+                <v-img @click="selectAsset(index)" :src="getAssetImageSmall(index)" height="50"></v-img>
+              </v-container>
+            </v-card>
+          </slide>
+        </carousel>
+      </template>
     </template>
   </div>
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex';
   import { Carousel, Slide } from 'vue-carousel';
   import vueMagnifier from "../../../components/vue-magnifier";
-  import { mapState, mapActions } from 'vuex';
+  import ZoomImage from "../../../components/ZoomImage";
+  import { isMobile } from "../../../functions";
 
   export default {
     components: {
       vueMagnifier,
       Carousel,
       Slide,
+      ZoomImage,
     },
     data() {
       return {
@@ -46,6 +74,7 @@
       this.fetchAssets();
     },
     methods: {
+      isMobile,
       fetchAssets() {
         var url = SERVER_URL + '/fetchAssets';
         var formData = {
