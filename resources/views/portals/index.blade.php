@@ -23,8 +23,8 @@
                         <th>No</th>
                         <th>Vendor</th>
                         <th>Subdomain</th>
+                        <th>Title</th>
                         <th>Color</th>
-                        <th></th>
                         <th>Logo</th>
                         <th>Background</th>
                         <th>Access</th>
@@ -38,7 +38,7 @@
                             <td>{{ $index+1 }}</td>
                             <td>{{ $portal->vendor }}</td>
                             <td><a href="{{ $portal->link }}" target="_blank">{{ $portal->link }}</a></td>
-                            <td>{{ $portal->color }}</td>
+                            <td>{{ $portal->title }}</td>
                             <td style="background-color:{{ $portal->color }}"> </td>
                             <td><img width="100" src="{{ $portal->logo_url }}"/></td>
                             <td><img width="100" src="{{ $portal->background_url }}"/></td>
