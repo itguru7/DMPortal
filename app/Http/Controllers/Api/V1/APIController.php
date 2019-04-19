@@ -18,7 +18,7 @@ class APIController extends Controller
             $portal = $portal[0];
             $result = DB::table('subdomains')->select('Vendor')->where('SubdomainID', $portal['subdomain_id'])->get();
             $result = json_decode(json_encode($result), true);
-            $portal['vendor'] = $result[0]['Vendor'];
+            $portal['vendor'] = strtolower($result[0]['Vendor']);
         } else {
             $portal = [];
         }
