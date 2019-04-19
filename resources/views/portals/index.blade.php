@@ -13,8 +13,8 @@
                     <thead>
                     <tr>
                         <th>No</th>
+                        <th>Vendor</th>
                         <th>Subdomain</th>
-                        <th>Name</th>
                         <th>Color</th>
                         <th></th>
                         <th>Logo</th>
@@ -28,8 +28,8 @@
                     @foreach($portals as $index => $portal)
                         <tr>
                             <td>{{ $index+1 }}</td>
-                            <td><a href="{{ $portal->link }}" target="_blank">{{ $portal->vendor }}</a></td>
-                            <td>{{ $portal->name }}</td>
+                            <td>{{ $portal->vendor }}</td>
+                            <td><a href="{{ $portal->link }}" target="_blank">{{ $portal->link }}</a></td>
                             <td>{{ $portal->color }}</td>
                             <td style="background-color:{{ $portal->color }}"> </td>
                             <td><img width="100" src="{{ $portal->logo_url }}"/></td>
