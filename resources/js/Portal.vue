@@ -1,7 +1,7 @@
 <template v-if="subdomainID > 0">
   <div v-if="access==1" class="portal-container" :style="{backgroundImage: backgroundImage}">
-    <h2>{{ name }}</h2>
     <v-img :src="logoImage" class="logo"></v-img>
+    <h2>{{ name }}</h2>
     <v-tabs
       v-model="activePage"
       :color="color"
