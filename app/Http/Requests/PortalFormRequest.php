@@ -26,7 +26,7 @@ class PortalFormRequest extends FormRequest
         return [
             'subdomain_id'  => 'required',
             'name'          => 'required|string|min:1|max:40',
-            'title'         => 'string|max:40',
+            'title'         => 'max:40',
         ];
     }
 
