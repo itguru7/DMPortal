@@ -66,6 +66,7 @@
     computed: {
       ...mapState({
         subdomain:          state => state.global.subdomain,
+        vendor:             state => state.global.vendor,
         selectedPartID:     state => state.global.selectedPartID,
         selectedPartNumber: state => state.global.selectedPartNumber,
       }),
@@ -87,10 +88,10 @@
           })
       },
       getAssetImageSmall(index) {
-        return 'assets/' + this.subdomain + '/small/' + this.assets[index]['File_Name'];
+        return 'assets/' + this.vendor + '/small/' + this.assets[index]['File_Name'];
       },
       getAssetImageLarge(index) {
-        return 'assets/' + this.subdomain + '/large/' + this.assets[index]['File_Name'];
+        return 'assets/' + this.vendor + '/large/' + this.assets[index]['File_Name'];
       },
       selectAsset(index) {
         this.selectedAssetIndex = index;

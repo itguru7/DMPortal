@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('styles')
+    <style>
+        table td {
+            vertical-align: middle;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="card">
