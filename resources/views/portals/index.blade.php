@@ -3,7 +3,7 @@
 @section('styles')
     <style>
         table td {
-            vertical-align: middle;
+            vertical-align: middle !important;
         }
     </style>
 @endsection
