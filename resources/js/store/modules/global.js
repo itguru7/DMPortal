@@ -1,6 +1,5 @@
 const state = {
   subdomainID: 0,
-  subdomain: '',
   vendor: '',
 
   title: '',
@@ -30,9 +29,6 @@ const getters = {
 }
 
 const mutations = {
-  updateSubdomain: (state, payload) => {
-    state.subdomain = payload;
-  },
   updatePortal: (state, payload) => {
     state.subdomainID = payload.subdomain_id;
     state.vendor = payload.vendor;
@@ -86,8 +82,6 @@ const mutations = {
 
 const actions = {
   fetchSubdomain: (context, payload) => {
-    context.commit('updateSubdomain', payload);
-
     var url = SERVER_URL + '/fetchSubdomain';
     var formData = {
       'subdomain': payload,

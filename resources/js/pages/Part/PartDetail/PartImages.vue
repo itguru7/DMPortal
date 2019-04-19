@@ -65,7 +65,6 @@
     },
     computed: {
       ...mapState({
-        subdomain:          state => state.global.subdomain,
         vendor:             state => state.global.vendor,
         selectedPartID:     state => state.global.selectedPartID,
         selectedPartNumber: state => state.global.selectedPartNumber,

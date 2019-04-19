@@ -66,8 +66,8 @@
     },
     computed: {
       ...mapState({
-        subdomain:          state => state.global.subdomain,
         subdomainID:        state => state.global.subdomainID,
+        vendor:              state => state.global.vendor,
         title:              state => state.global.title,
         color:              state => state.global.color,
         logo:               state => state.global.logo,
@@ -84,10 +84,10 @@
         },
       },
       logoImage() {
-        return this.logo ? 'assets/' + this.subdomain + '/' + this.logo : '';
+        return this.logo ? 'assets/' + this.vendor + '/' + this.logo : '';
       },
       backgroundImage() {
-        return this.background ? 'url(assets/' + this.subdomain + '/' + this.background + ')' : '';
+        return this.background ? 'url(assets/' + this.vendor + '/' + this.background + ')' : '';
       },
     },
     created() {
