@@ -1,7 +1,7 @@
 <template v-if="subdomainID > 0">
   <div v-if="access==1" class="portal-container" :style="{backgroundImage: backgroundImage}">
     <v-img :src="logoImage" class="logo"></v-img>
-    <h2>{{ name }}</h2>
+    <h2>{{ title }}</h2>
     <v-tabs
       v-model="activePage"
       :color="color"
@@ -68,7 +68,7 @@
       ...mapState({
         subdomain:          state => state.global.subdomain,
         subdomainID:        state => state.global.subdomainID,
-        name:               state => state.global.name,
+        title:              state => state.global.title,
         color:              state => state.global.color,
         logo:               state => state.global.logo,
         background:         state => state.global.background,

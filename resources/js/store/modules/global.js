@@ -88,8 +88,6 @@ const actions = {
   fetchSubdomain: (context, payload) => {
     context.commit('updateSubdomain', payload);
 
-    console.log(payload);
-
     var url = SERVER_URL + '/fetchSubdomain';
     var formData = {
       'subdomain': payload,
