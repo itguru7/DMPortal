@@ -32,11 +32,11 @@
       height="auto"
     >
       <v-card
-        class="flex"
+        class="flex text-center"
         flat
         tile
       >
-        <v-card-text>
+        <v-card-text class="justify-center">
           Contact us: <a href="mailto:info@cryomaxusa.com">info@cryomaxusa.com</a>
         </v-card-text>
         <v-divider></v-divider>
