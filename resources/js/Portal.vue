@@ -37,7 +37,7 @@
         tile
       >
         <v-card-text>
-          <h5>Contact us: <a href="mailto:info@cryomaxusa.com">info@cryomaxusa.com</a></h5>
+          <h5>Contact us: <a href="mailto:info@cryomaxusa.com" class="text-white">info@cryomaxusa.com</a></h5>
           <v-divider></v-divider>
           <h6>Catalog provided by DataPoint Inc | all rights reserved</h6>
         </v-card-text>
