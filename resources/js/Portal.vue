@@ -27,6 +27,20 @@
         <app-xref></app-xref>
       </v-tab-item>
     </v-tabs>
+    <v-footer
+      dark
+      height="auto"
+    >
+      <v-card
+        class="flex"
+        flat
+        tile
+      >
+        <v-card-actions class="justify-center">
+          Catalog provided by DataPoint Inc | all rights reserved
+        </v-card-actions>
+      </v-card>
+    </v-footer>
   </div>
   <div v-else class="container">
     <div class="row">
@@ -123,7 +137,6 @@
   }
   .logo {
     width: 100px;
-    height: 50px;
   }
 </style>
 

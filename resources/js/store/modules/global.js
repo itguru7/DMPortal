@@ -8,7 +8,6 @@ const state = {
   background: '',
   access: 0,
   password: '',
-  pwd: '',
 
   activePage: null,
   activePartPage: null,
