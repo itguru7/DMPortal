@@ -36,13 +36,11 @@
         flat
         tile
       >
-        <v-card-text class="justify-center">
-          Contact us: <a href="mailto:info@cryomaxusa.com">info@cryomaxusa.com</a>
+        <v-card-text>
+          <h5>Contact us: <a href="mailto:info@cryomaxusa.com">info@cryomaxusa.com</a></h5>
+          <v-divider></v-divider>
+          <h6>Catalog provided by DataPoint Inc | all rights reserved</h6>
         </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions class="justify-center">
-          Catalog provided by DataPoint Inc | all rights reserved
-        </v-card-actions>
       </v-card>
     </v-footer>
   </div>
