@@ -27,12 +27,13 @@ class PortalFormRequest extends FormRequest
             'subdomain_id'  => 'required',
             'name'          => 'required|string|min:1|max:40',
             'title'         => 'max:40',
+            'contact'       => 'email',
         ];
     }
 
     public function getData()
     {
-        $data = $this->only(['subdomain_id', 'name', 'title', 'color', 'logo', 'background', 'password']);
+        $data = $this->only(['subdomain_id', 'name', 'title', 'contact', 'color', 'logo', 'background', 'password']);
         $data['access'] = $this->has('access');
 
         return $data;
