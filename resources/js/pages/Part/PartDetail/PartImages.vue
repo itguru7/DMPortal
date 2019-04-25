@@ -102,6 +102,7 @@
 
 <style>
   .vue-magnifier-container .preview {
+    z-index: 1;
     width: 100% !important;
     height: 300px !important;
   }
