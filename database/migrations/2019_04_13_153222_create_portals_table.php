@@ -18,6 +18,7 @@ class CreatePortalsTable extends Migration
             $table->integer('subdomain_id')->index();
             $table->string('name')->nullable()->default('');
             $table->string('title')->nullable()->default('');
+            $table->email('contact')->nullable()->default('');
             $table->string('color')->nullable()->default('#000000');
             $table->string('logo')->nullable()->default('');
             $table->string('background')->nullable()->default('');

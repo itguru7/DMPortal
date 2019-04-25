@@ -37,9 +37,11 @@
         tile
       >
         <v-card-text>
-          <h5>Contact us: <a href="mailto:info@cryomaxusa.com" class="text-white">info@cryomaxusa.com</a></h5>
+          <h5 v-if="contact">
+            Contact us: <a :href="'mailto:' + contact" class="text-white">{{contact}}</a>
+          </h5>
           <v-divider></v-divider>
-          <h6>Catalog provided by DataPoint Inc | all rights reserved</h6>
+          <h6>Catalog provided by <a href="www.aftermarketdata.com">DataPoint Inc</a> | all rights reserved</h6>
         </v-card-text>
       </v-card>
     </v-footer>
@@ -83,8 +85,9 @@
     computed: {
       ...mapState({
         subdomainID:        state => state.global.subdomainID,
-        vendor:              state => state.global.vendor,
+        vendor:             state => state.global.vendor,
         title:              state => state.global.title,
+        contact:            state => state.global.contact,
         color:              state => state.global.color,
         logo:               state => state.global.logo,
         background:         state => state.global.background,

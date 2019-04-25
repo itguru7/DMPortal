@@ -23,6 +23,10 @@
             {!! Form::text('title', null, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
+            {!! Form::label('contact', 'Contact Info:') !!}
+            {!! Form::text('contact', null, ['class' => 'form-control']) !!}
+        </div>
+        <div class="form-group">
             {!! Form::label('color', 'Color:') !!}
             {!! Form::text('color', null, ['class' => 'form-control']) !!}
         </div>

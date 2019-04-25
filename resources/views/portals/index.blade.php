@@ -24,6 +24,7 @@
                         <th>Vendor</th>
                         <th>Subdomain</th>
                         <th>Title</th>
+                        <th>Contact Info</th>
                         <th>Color</th>
                         <th>Logo</th>
                         <th>Background</th>
@@ -39,6 +40,7 @@
                             <td>{{ $portal->vendor }}</td>
                             <td><a href="{{ $portal->link }}" target="_blank">{{ $portal->link }}</a></td>
                             <td>{{ $portal->title }}</td>
+                            <td><a href="mailto:{{ $portal->contact }}">{{ $portal->contact }}</a></td>
                             <td style="background-color:{{ $portal->color }}"> </td>
                             <td><img width="100" src="{{ $portal->logo_url }}"/></td>
                             <td><img width="100" src="{{ $portal->background_url }}"/></td>

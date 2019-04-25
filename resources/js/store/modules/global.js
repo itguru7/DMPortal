@@ -3,6 +3,7 @@ const state = {
   vendor: '',
 
   title: '',
+  contact: '',
   color: '',
   logo: '',
   background: '',
@@ -31,6 +32,7 @@ const mutations = {
   updatePortal: (state, payload) => {
     state.subdomainID = payload.subdomain_id;
     state.vendor = payload.vendor;
+    state.contact = payload.contact;
     state.title = payload.title;
     state.color = payload.color;
     state.logo = payload.logo;

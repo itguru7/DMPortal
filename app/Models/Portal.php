@@ -15,6 +15,7 @@ class Portal extends Model
         'subdomain_id',
         'name',
         'title',
+        'contact',
         'color',
         'logo',
         'background',
