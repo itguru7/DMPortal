@@ -146,8 +146,8 @@ export default {
 // Magnifying glass options
 $border-size: 5px; // Modify the border width of the magnifying glass component
 $border-color: #666666; // Modify the border color of the magnifying glass component
-$magnifier-width: 150px; // Modify the width of the magnifying glass component
-$magnifier-height: 150px; // Modify the height of the magnifying glass component
+$magnifier-width: 225px; // Modify the width of the magnifying glass component
+$magnifier-height: 225px; // Modify the height of the magnifying glass component
 
 // Define your responsive sizes of
 $sizes: (
