@@ -37,11 +37,13 @@
         tile
       >
         <v-card-text>
-          <h5 v-if="contact">
-            Contact us: <a :href="'mailto:' + contact" class="text-white">{{contact}}</a>
-          </h5>
-          <v-divider></v-divider>
-          <h6>Catalog provided by <a href="www.aftermarketdata.com">DataPoint Inc</a> | all rights reserved</h6>
+          <template v-if="contact">
+            <h5>
+              Contact us: <a :href="'mailto:' + contact" class="text-white">{{contact}}</a>
+            </h5>
+            <v-divider></v-divider>
+          </template>
+          <h6>Catalog provided by <a href="https://www.aftermarketdata.com">DataPoint Inc</a> | all rights reserved</h6>
         </v-card-text>
       </v-card>
     </v-footer>
