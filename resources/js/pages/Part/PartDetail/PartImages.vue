@@ -9,6 +9,7 @@
           </div>
           <div class="col-3">
             <ZoomImage
+              id="zoomImage"
               imageWidth="150"
               imageHeight="150"
               :src="getAssetImageLarge(selectedAssetIndex)"
@@ -105,5 +106,8 @@
     z-index: 1;
     width: 100% !important;
     height: 300px !important;
+  }
+  #zoomImage img {
+    z-index: 1;
   }
 </style>
