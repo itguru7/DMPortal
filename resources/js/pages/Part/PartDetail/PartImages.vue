@@ -110,4 +110,7 @@
   #zoomImage img {
     z-index: 1;
   }
+  #zoomImage div {
+    z-index: 1;
+  }
 </style>
