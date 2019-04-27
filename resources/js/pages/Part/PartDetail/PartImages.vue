@@ -8,6 +8,7 @@
             <vue-magnifier :src="getAssetImageLarge(selectedAssetIndex)" :src-large="getAssetImageLarge(selectedAssetIndex)"/>
           </div>
           <div class="col-3">
+            <img id="magnifierIcon" src="assets/magnifier.png">
             <ZoomImage
               id="zoomImage"
               imageWidth="150"
@@ -112,5 +113,12 @@
   }
   #zoomImage div {
     z-index: 1;
+  }
+  #magnifierIcon {
+    position: absolute;
+    pointer-events: none;
+    width: 100px;
+    top: 30px;
+    left: 60px;
   }
 </style>
