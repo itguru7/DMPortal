@@ -1,5 +1,6 @@
 <template>
-  <div v-bind:style="{ width: imageWidth + 'px', height: imageHeight + 'px' }" v-on:click="toggleZoom" >
+  <div v-bind:style="{ position: 'relative', width: imageWidth + 'px', height: imageHeight + 'px' }" v-on:click="toggleZoom" >
+    <img id="magnifierIcon" src="assets/magnifier.png">
     <Frame :pose="pose" class="frame" />
     <ZoomImage :pose="pose" :src="src" />
   </div>
@@ -73,6 +74,7 @@ img {
   display: block;
   max-width: 100%;
   margin: auto;
+  z-index: 1;
 }
 
 img.zoomed {
@@ -88,5 +90,15 @@ img.zoomed {
   display: none;
   background: white;
   transform: translateZ(0);
+  z-index: 1;
 }
+</style>
+
+<style scoped>
+  #magnifierIcon {
+    position: absolute;
+    pointer-events: none;
+    width: 50px;
+    bottom: 0;
+  }
 </style>
