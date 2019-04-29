@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:style="{ position: 'relative', width: imageWidth + 'px', height: imageHeight + 'px' }" v-on:click="toggleZoom" >
+  <div v-bind:style="{ position: 'relative', width: imageWidth + 'px' }" v-on:click="toggleZoom" >
     <img id="magnifierIcon" src="assets/magnifier.png">
     <Frame :pose="pose" class="frame" />
     <ZoomImage :pose="pose" :src="src" />
