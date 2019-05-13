@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'DMPortal') }}</title>
+    <title>{{ config('app.name', 'AftermarketData.com | Automotive Parts Management, ACES PIES Mapping') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -38,7 +38,7 @@
                 @auth
                     <h4>Welcome {{ Auth::user()->name }}</h4>
                 @else
-                    <h4>{{ config('app.name', 'DMPortal') }}</h4>
+                    <h4>{{ config('app.name', 'AftermarketData.com | Automotive Parts Management, ACES PIES Mapping') }}</h4>
                 @endauth
 
                 <a class="navbar-brand" href="{{ url('/') }}">

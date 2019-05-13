@@ -90,6 +90,7 @@ const actions = {
     axios.post(url, formData)
       .then(res  => {
         context.commit('updatePortal', res.data['portal']);
+        document.title = context.state.title;
       })
   },
 
